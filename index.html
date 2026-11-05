@@ -3,15 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Wie viele deiner Besuchenden bringen statistisch Beeinträchtigungen, Erkrankungen oder Gewalterfahrungen mit? Ein Rechner für Festivals von saferspaces.">
+<meta name="description" content="Wie viele deiner Besuchenden bringen statistisch Beeinträchtigungen, Erkrankungen oder Gewalterfahrungen mit? Ein Rechner für Festivals von saferspaces, mit Quellen für Deutschland und die EU.">
 <meta property="og:title" content="Wie viele Menschen?">
-<meta property="og:description" content="Wie viele deiner Besuchenden bringen statistisch Beeinträchtigungen, Erkrankungen oder Gewalterfahrungen mit? Ein Rechner für Festivals von saferspaces.">
+<meta property="og:description" content="Wie viele deiner Besuchenden bringen statistisch Beeinträchtigungen, Erkrankungen oder Gewalterfahrungen mit? Ein Rechner für Festivals von saferspaces, mit Quellen für Deutschland und die EU.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232A1482'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23D2D6EF'/%3E%3C/svg%3E">
 <title>Wie viele Menschen?</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,700&family=Figtree:wght@400;500;700&display=swap">
 <style>
-
 /* Hausschriften: Dateien in /fonts ablegen (siehe README). Fehlen sie, greifen Fraunces und Figtree. */
 @font-face{font-family:"GT Alpina Condensed";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/GTAlpina-CondBold.otf") format("opentype")}
 @font-face{font-family:"GT Alpina Condensed";font-style:italic;font-weight:700;font-display:swap;src:url("fonts/GTAlpina-CondBoldItalic.otf") format("opentype")}
@@ -58,6 +57,10 @@ a{color:var(--purple)}
 .top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:56px}
 .brand{font-family:var(--body);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--purple);text-decoration:none}
 .eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.top-right{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.seg{display:inline-flex;border:2px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:700;letter-spacing:.06em;padding:6px 12px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--purple);color:var(--bg)}
 
 /* hero */
 h1{font-family:var(--display);font-weight:700;font-size:clamp(56px,10vw,104px);line-height:1;letter-spacing:-.01em;color:var(--purple);margin:0 0 28px;text-wrap:balance}
@@ -68,7 +71,7 @@ h1 em{font-style:italic}
 
 /* input card */
 .calc{background:var(--surface);border-radius:var(--r-m);box-shadow:var(--shadow);padding:28px;display:grid;gap:18px;margin-bottom:20px}
-.calc label{font-weight:700;font-size:16px}
+.calc .row-label{font-weight:700;font-size:16px}
 .calc form{display:flex;gap:12px;flex-wrap:wrap;align-items:stretch}
 .calc .field{flex:1 1 220px;min-width:0;display:flex;align-items:center;gap:10px;border:2px solid var(--line);border-radius:var(--r-s);padding:0 16px;background:var(--surface)}
 .calc .field:focus-within{border-color:var(--purple)}
@@ -76,6 +79,7 @@ h1 em{font-style:italic}
 .calc input::-webkit-outer-spin-button,.calc input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .calc input[type=number]{-moz-appearance:textfield}
 .calc .unit{color:var(--muted);font-size:15px;white-space:nowrap}
+.region{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:15px;color:var(--muted)}
 .btn{border:0;border-radius:999px;background:var(--green);color:var(--green-ink);font:inherit;font-weight:700;font-size:17px;padding:14px 28px;cursor:pointer;transition:transform .12s ease,filter .12s ease}
 .btn:hover{filter:brightness(1.06)}
 .btn:active{transform:scale(.98)}
@@ -87,14 +91,16 @@ h1 em{font-style:italic}
 h2{font-family:var(--display);font-weight:700;font-size:clamp(40px,6vw,56px);line-height:1;color:var(--purple);margin:0;text-wrap:balance}
 h2 em{font-style:italic}
 .results-head p{margin:0;max-width:66ch}
+.results-head p.region-note{font-size:15px;color:var(--muted)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:40px}
-.tile{background:var(--tile-bg);color:var(--tile-fg);border-radius:var(--r-m);padding:22px 22px 18px;display:grid;gap:6px;min-width:0}
+.tile{background:var(--tile-bg);color:var(--tile-fg);border-radius:var(--r-m);padding:22px 22px 18px;display:grid;gap:6px;min-width:0;align-content:start}
 .tile .num{font-family:var(--display);font-weight:700;font-size:48px;line-height:1;font-variant-numeric:tabular-nums}
 .tile .lab{font-size:15px;line-height:1.3}
+.tile .src{font-size:13px;opacity:.8}
 
 .group{background:var(--surface);border-radius:var(--r-m);box-shadow:var(--shadow);padding:28px;margin-bottom:16px}
 .group header{display:grid;gap:8px;margin-bottom:18px}
-h3{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.5vw,40px);line-height:1;color:var(--purple);margin:0}
+h3{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.5vw,40px);line-height:1;color:var(--purple);margin:0;text-wrap:balance}
 .group header p{margin:0;color:var(--muted);font-size:16px;max-width:66ch}
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 0 8px;border-bottom:2px solid var(--line)}
@@ -106,13 +112,15 @@ h3{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.5vw,40px);l
 .tbl td.src{text-align:right;padding-left:16px;max-width:9em}
 .tbl td.src a{font-size:14px;font-weight:700;text-decoration:none;border-bottom:1.5px solid currentColor}
 .tbl td.name small{display:block;color:var(--muted);font-size:14px;line-height:1.3;margin-top:2px}
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1.5px solid var(--line);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.tile .chip{color:inherit;border-color:currentColor;opacity:.8;margin-left:0}
 @media (max-width:600px){
   .tbl th.pct,.tbl td.pct{display:none}
   .group{padding:20px}
   .tbl td.count{font-size:20px}
 }
 
-/* method + footer */
+/* method, sources, footer */
 .method{background:var(--accent-soft);border-radius:var(--r-m);padding:28px;margin:32px 0 48px;display:grid;gap:12px}
 .method h3{font-size:28px}
 .method p,.method li{margin:0;font-size:16px}
@@ -126,245 +134,448 @@ footer p{margin:0}
 footer .mail{font-weight:700;color:var(--purple)}
 @media (prefers-reduced-motion:reduce){.btn{transition:none}}
 </style>
+
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="app">
   <div class="top">
     <a class="brand" href="https://saferspaces.io" target="_blank" rel="noopener">saferspaces</a>
-    <span class="eyebrow">Future of Festivals 2026</span>
+    <div class="top-right">
+      <span class="eyebrow">Future of Festivals 2026</span>
+      <div class="seg" role="group" aria-label="Sprache / Language">
+        <button type="button" id="lang-de" data-lang="de" lang="de">DE</button>
+        <button type="button" id="lang-en" data-lang="en" lang="en">EN</button>
+      </div>
+    </div>
   </div>
 
-  <h1>Wie viele <em>Menschen?</em></h1>
+  <h1 data-i18n-html="h1">Wie viele <em>Menschen?</em></h1>
   <div class="lead">
-    <p class="strong">Jeder Mensch ist einzigartig und bringt eigene Bedürfnisse mit auf dein Festival. Damit sich alle willkommen und aufgehoben fühlen, müssen Hürden im Gelände, in der Kommunikation und beim Melden so niedrig wie möglich sein.</p>
-    <p>Hier siehst du, wie viele deiner Besuchenden statistisch mit bestimmten Beeinträchtigungen, Erkrankungen oder Erfahrungen auf dein Gelände kommen. Die Zahlen beruhen auf Daten für Deutschland und sind bewusst breit gerechnet, denn die meisten Beeinträchtigungen sieht man nicht. Daraus kannst du ableiten, was dein Awareness-Konzept und deine Schutzstrukturen abdecken sollten. Gib dazu die erwartete Zahl der Besuchenden ein.</p>
+    <p class="strong" data-i18n="lead1"></p>
+    <p data-i18n="lead2"></p>
+    <p data-i18n="lead3"></p>
   </div>
 
   <section class="calc" aria-labelledby="calc-label">
-    <label id="calc-label" for="visitors">Erwartete Besuchende deines Festivals</label>
+    <label class="row-label" id="calc-label" for="visitors" data-i18n="calcLabel"></label>
     <form id="calc-form">
       <div class="field">
         <input id="visitors" name="visitors" type="number" inputmode="numeric" min="1" max="100000000" step="1" value="50000" aria-describedby="calc-hint">
-        <span class="unit">Menschen</span>
+        <span class="unit" data-i18n="unit"></span>
       </div>
-      <button class="btn" type="submit">Berechnen</button>
+      <button class="btn" type="submit" data-i18n="calcBtn"></button>
     </form>
+    <div class="region">
+      <span id="region-label" data-i18n="regionLabel"></span>
+      <div class="seg" role="group" aria-labelledby="region-label">
+        <button type="button" id="region-de" data-region="DE"></button>
+        <button type="button" id="region-eu" data-region="EU"></button>
+      </div>
+    </div>
   </section>
-  <p class="note" id="calc-hint">Eine Person kann mehrere Merkmale haben. Die Zahlen summieren sich deshalb nicht auf die Gesamtzahl der Besuchenden.</p>
+  <p class="note" id="calc-hint" data-i18n="hint"></p>
 
   <div class="results-head">
-    <span class="eyebrow">Ergebnis</span>
-    <h2 id="result-title">Bei <em>50.000</em> Besuchenden</h2>
-    <p>Jede Zeile zeigt, wie viele Menschen auf deinem Gelände ein Merkmal statistisch mitbringen. Hinter jeder Zahl steht, aus welcher Studie sie kommt. Alle Quellen mit Link findest du im <a href="#quellen">Quellenverzeichnis</a> unten.</p>
+    <span class="eyebrow" data-i18n="resultEyebrow"></span>
+    <h2 id="result-title"></h2>
+    <p data-i18n-html="resultIntro"></p>
+    <p class="region-note" id="region-note" hidden data-i18n="euNote"></p>
   </div>
 
   <div class="tiles" id="tiles"></div>
   <div id="groups"></div>
 
   <section class="method">
-    <h3>Methode und Grenzen</h3>
-    <p>Die Anteile stammen aus Bevölkerungsdaten für Deutschland, überwiegend aus Studien des Robert Koch-Instituts, des Statistischen Bundesamts und anderen öffentlich zugänglichen Quellen. Sie werden einfach auf die Zahl der Besuchenden hochgerechnet. Welche Studie hinter welcher Zahl steht, siehst du in jeder Tabellenzeile und im Quellenverzeichnis.</p>
-    <ul>
-      <li>Festivalpublikum ist im Schnitt jünger als die Gesamtbevölkerung. Psychische Störungen sind bei 18- bis 34-Jährigen häufiger als im Durchschnitt (37 % statt 28 % laut DEGS1-MH), altersbedingte Einschränkungen wie Hörprobleme oder Diabetes seltener.</li>
-      <li>Die Zahlen zu Gewalterfahrung stammen aus der Dunkelfeldstudie LeSuBiA von Bundeskriminalamt, Bundesinnenministerium und Bundesfamilienministerium (2026). Befragt wurden rund 15.000 Menschen zwischen 16 und 85 Jahren. Die Werte geben an, wie viele Frauen beziehungsweise Männer so etwas mindestens einmal im Leben erlebt haben.</li>
-      <li>Für diese Zeilen ist mit je 50 % Frauen und Männern unter den Besuchenden gerechnet. Weiche davon ab, wenn du dein Publikum kennst.</li>
-      <li>Weniger als zehn Prozent der Gewalterfahrungen werden laut LeSuBiA angezeigt. Polizeistatistiken zeigen deshalb nur einen kleinen Teil.</li>
-      <li>Eine Person kann mehrere Merkmale haben. Addieren ist deshalb nicht zulässig.</li>
-      <li>Vorlage ist das Werkzeug „Wie viele Menschen?“ des DigitalService des Bundes (MIT-Lizenz). Auswahl und Ergänzung der Merkmale sind auf Awareness und Schutzstrukturen bei Veranstaltungen ausgerichtet.</li>
-    </ul>
+    <h3 data-i18n="methodTitle"></h3>
+    <p data-i18n="method1"></p>
+    <ul id="method-list"></ul>
   </section>
 
   <section class="sources" id="quellen" aria-labelledby="quellen-title">
-    <h3 id="quellen-title">Quellen</h3>
+    <h3 id="quellen-title" data-i18n="sourcesTitle"></h3>
     <ul id="source-list"></ul>
   </section>
 
   <footer>
-    <p>Ein Werkzeug von saferspaces. Melden. Reagieren. Verstehen.</p>
-    <p>Fragen oder Ergänzungen: <span class="mail">kontakt@saferspaces.io</span></p>
+    <p data-i18n="footer1"></p>
+    <p><span data-i18n="footer2"></span> <span class="mail">kontakt@saferspaces.io</span></p>
   </footer>
 </div>
 
 <script>
 (function(){
-  /* u = Link, k = Kurzname in der Tabelle, t = Eintrag im Quellenverzeichnis */
-  var S = {
-    jacobi: {u: "https://doi.org/10.1007/s00115-013-3961-y", k: "DEGS1-MH", t: "Jacobi et al.: Psychische Störungen in der Allgemeinbevölkerung (DEGS1-MH), Der Nervenarzt 2014"},
-    hoeren: {u: "https://doi.org/10.25646/14328", k: "RKI", t: "Robert Koch-Institut: Hörbeeinträchtigungen, Journal of Health Monitoring"},
-    migraene: {u: "https://doi.org/10.25646/6988", k: "RKI", t: "Robert Koch-Institut: Migräne und Spannungskopfschmerz, Journal of Health Monitoring"},
-    chronisch: {u: "https://www.gbe.rki.de/chronisches-kranksein", k: "RKI", t: "Robert Koch-Institut, Gesundheitsberichterstattung: Chronisches Kranksein"},
-    gehen: {u: "https://www.gbe.rki.de/koerperliche-einschraenkungen", k: "RKI", t: "Robert Koch-Institut, Gesundheitsberichterstattung: Körperliche Einschränkungen"},
-    schwerb: {u: "https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Gesundheit/Behinderte-Menschen/Publikationen/Downloads-Behinderte-Menschen/statistischer-bericht-schwerbehinderte-2130510259005.xlsx?__blob=publicationFile", k: "Destatis", t: "Statistisches Bundesamt: Statistischer Bericht Schwerbehinderte Menschen"},
-    mid: {u: "https://www.mobilitaet-in-deutschland.de/pdf/MiD2023_Ergebnisbericht.pdf", k: "MiD 2023", t: "Mobilität in Deutschland 2023, Ergebnisbericht"},
-    zva: {u: "https://www.zva.de/wp-content/uploads/ZVA-Brillenstudie-2024.pdf", k: "ZVA 2024", t: "Zentralverband der Augenoptiker und Optometristen: Brillenstudie 2024"},
-    proretina: {u: "https://www.pro-retina.de/netzhaut-und-farbenblindheit", k: "PRO RETINA", t: "PRO RETINA Deutschland: Netzhaut und Farbenblindheit"},
-    gehoerlos: {u: "https://www.bundesfachstelle-barrierefreiheit.de/DE/Fachwissen/Information-und-Kommunikation/Gebaerdensprache/gebaerdensprache_node.html", k: "Bundesfachstelle", t: "Bundesfachstelle Barrierefreiheit: Gebärdensprache"},
-    tinnitus: {u: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10052845/", k: "Fachartikel", t: "Fachartikel zur Tinnitus-Häufigkeit (PubMed Central)"},
-    oecd: {u: "https://www.oecd.org/de/publications/2024/12/survey-of-adults-skills-2023-country-notes_df7b4a60/germany_264dd624.html", k: "OECD 2023", t: "OECD: Survey of Adult Skills 2023 (PIAAC), Länderbericht Deutschland"},
-    leo: {u: "https://leo.blogs.uni-hamburg.de/wp-content/uploads/2022/09/LEO2018-Presseheft.pdf", k: "LEO 2018", t: "Universität Hamburg: LEO 2018, Leben mit geringer Literalität"},
-    dyskalkulie: {u: "https://www.aerzteblatt.de/archiv/205460/Diagnostik-und-Behandlung-der-Rechenstoerung", k: "Ärzteblatt", t: "Deutsches Ärzteblatt: Diagnostik und Behandlung der Rechenstörung"},
-    adhs: {u: "https://www.adhs.info/fuer-erwachsene/wichtige-zahlen-und-fakten", k: "adhs.info", t: "zentrales adhs-netz (adhs.info): Wichtige Zahlen und Fakten"},
-    lernen: {u: "https://lernen-foerdern.de/wp-content/uploads/2023/02/LERNEN-FOeRDERN_Eser_Statistik-zur-Lernbehinderung_12.12.2020.pdf", k: "LERNEN FÖRDERN", t: "LERNEN FÖRDERN: Statistik zur Lernbehinderung"},
-    who: {u: "https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders", k: "WHO", t: "Weltgesundheitsorganisation: Factsheet Autismus-Spektrum-Störungen"},
-    allergie: {u: "https://edoc.rki.de/handle/176904/2584", k: "RKI", t: "Robert Koch-Institut: Allergische Erkrankungen bei Erwachsenen"},
-    diabetes: {u: "https://edoc.rki.de/bitstream/176904/6223/1/PM%20JoHM%202%202019%20-%20Diabetes-Surveillance.pdf", k: "RKI", t: "Robert Koch-Institut: Diabetes-Surveillance, Journal of Health Monitoring 2019"},
-    asthma: {u: "https://doi.org/10.17886/RKI-GBE-2017-064", k: "RKI", t: "Robert Koch-Institut: Asthma bronchiale, Journal of Health Monitoring 2017"},
-    epilepsie: {u: "https://epilepsie-vereinigung.de/wp-content/uploads/2019/02/Epi-im-wandel-der-Zeit_0219.pdf", k: "Epilepsievereinigung", t: "Deutsche Epilepsievereinigung: Epilepsie im Wandel der Zeit"},
-    einwanderung: {u: "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/04/PD26_128_125.html", k: "Destatis", t: "Statistisches Bundesamt: Pressemitteilung zur Bevölkerung mit Einwanderungsgeschichte, April 2026"},
-    sprache: {u: "https://www.destatis.de/DE/Presse/Pressemitteilungen/Zahl-der-Woche/2026/PD26_08_p002.html", k: "Destatis", t: "Statistisches Bundesamt: Zahl der Woche zur Sprache im Haushalt, 2026"},
-    smartphone: {u: "https://www.bitkom.org/Presse/Presseinformation/Smartphone-KI-fuer-ein-Drittel-Alltag", k: "Bitkom", t: "Bitkom: Presseinformation zur Smartphone-Nutzung"},
-    ipsos25: {u: "https://www.ipsos.com/de-de/node/1049076", k: "Ipsos 2025", t: "Ipsos: LGBT+ Pride Report 2025"},
-    ipsos24: {u: "https://www.ipsos.com/de-de/node/1023651", k: "Ipsos 2024", t: "Ipsos: LGBT+ Pride Report 2024"},
-    lesubia: {u: "https://www.bka.de/SharedDocs/Downloads/DE/Publikationen/Publikationsreihen/Forschungsergebnisse/260210_LeSuBiA_Ergebnisse_I.pdf?__blob=publicationFile&v=10", k: "LeSuBiA 2026", t: "BKA, BMI und BMBFSFJ: Dunkelfeldstudie LeSuBiA (Lebenssituation, Sicherheit und Belastung im Alltag), Ergebnisse I, 2026, Tabelle 1"}
+  /* Oberflächentexte. Keine langen Gedankenstriche, Du-Form. */
+  var T = {
+    de: {
+      title: "Wie viele Menschen?",
+      h1: "Wie viele <em>Menschen?</em>",
+      lead1: "Wer seine Zielgruppe kennt, schafft einen Ort, an dem sich alle Menschen wohl und aufgehoben fühlen und gerne wiederkommen. Und einen Ort, an den auch die Menschen kommen möchten, die ohne Schutzstrukturen fernbleiben würden.",
+      lead2: "Jeder Mensch ist einzigartig und bringt eigene Bedürfnisse mit. Damit sich alle willkommen fühlen, müssen Barrieren vor Ort, in der Kommunikation und beim Melden so niedrig wie möglich sein.",
+      lead3: "Hier siehst du, wie viele Menschen in deinem Publikum oder deinem Team statistisch bestimmte Beeinträchtigungen, Erkrankungen oder Erfahrungen mitbringen. Die meisten Beeinträchtigungen sieht man nicht. Daraus kannst du ableiten, was dein Schutzkonzept und deine Safeguarding-Strukturen abdecken sollten. Jede Zahl stammt aus einer amtlichen Statistik oder einer veröffentlichten Studie. Welche das ist, steht direkt dahinter.",
+      calcLabel: "Erwartete Zahl der Menschen: Besuchende, Teilnehmende oder Mitglieder",
+      unit: "Menschen",
+      calcBtn: "Berechnen",
+      regionLabel: "Daten für",
+      DE: "Deutschland", EU: "EU",
+      hint: "Eine Person kann mehrere Merkmale haben. Die Zahlen summieren sich deshalb nicht auf die Gesamtzahl.",
+      resultEyebrow: "Ergebnis",
+      resultTitle: "Bei <em>{n}</em> Menschen",
+      resultIntro: "Jede Zeile zeigt, wie viele dieser Menschen ein Merkmal statistisch mitbringen. Darunter steht, für wen und für welchen Zeitraum die Zahl gilt, dahinter die Quelle. Alle Quellen mit Link findest du im <a href=\"#quellen\">Quellenverzeichnis</a>.",
+      euNote: "EU-Werte stammen aus Eurostat und der EU-Erhebung zu geschlechtsspezifischer Gewalt. Wo es keine vergleichbare EU-Zahl gibt, steht der Wert für Deutschland mit dem Hinweis „nur DE-Daten“.",
+      thName: "Merkmal", thPct: "Anteil", thCount: "Anzahl", thSrc: "Quelle",
+      chipDE: "nur DE-Daten", chipWorld: "weltweit",
+      under1: "unter 1",
+      genderNote: "{rate} der {who}, {base}. Gerechnet mit {half} {whoDat}.",
+      women: "Frauen", men: "Männer", womenDat: "Frauen", menDat: "Männern",
+      methodTitle: "Methode und Grenzen",
+      method1: "Die Anteile stammen aus amtlichen Statistiken und veröffentlichten Studien, vor allem vom Robert Koch-Institut, vom Statistischen Bundesamt, vom Bundeskriminalamt und von Eurostat. Sie werden einfach auf die Zahl der Besuchenden hochgerechnet.",
+      method: [
+        "Aufgenommen sind nur Zahlen, die so in der verlinkten Quelle stehen. Zahlen, die sich nicht direkt belegen lassen, haben wir weggelassen.",
+        "Dein Publikum kann deutlich von der Gesamtbevölkerung abweichen. Die meisten Studien befragen Erwachsene. Ist dein Publikum jünger, sind psychische Erkrankungen häufiger (bei 18- bis 34-Jährigen 35,8 % statt 27,7 % laut DEGS1-MH, Tabelle 1), altersbedingte Einschränkungen wie Hörbeeinträchtigungen oder Diabetes seltener. Ist es älter, gilt eher das Gegenteil.",
+        "Fast alle Werte beziehen sich auf Deutschland. Ausnahme ist Autismus: Hier gibt es nur eine weltweite Schätzung der WHO.",
+        "Die Zahlen zu Gewalterfahrung in Deutschland stammen aus der Dunkelfeldstudie LeSuBiA von Bundeskriminalamt, Bundesinnenministerium und Bundesfamilienministerium (2026). Befragt wurden 15.479 Menschen zwischen 16 und 85 Jahren. Die Werte geben an, wie viele Frauen beziehungsweise Männer so etwas mindestens einmal im Leben erlebt haben.",
+        "Für diese Zeilen ist mit je 50 % Frauen und Männern gerechnet. Weiche davon ab, wenn du dein Publikum kennst. Für trans*, inter* und nicht-binäre Menschen weist LeSuBiA keine eigenen Werte aus. Die Studie zeigt aber, dass LSBTIQ*-Personen deutlich häufiger betroffen sind: Einen sexuellen Übergriff erlebt haben 19,5 % von ihnen, gegenüber 9,8 % der übrigen Befragten.",
+        "Laut LeSuBiA werden weniger als zehn Prozent der Gewalterfahrungen angezeigt, sexuelle Belästigung von Frauen sogar in weniger als 3 % der Fälle. Polizeistatistiken zeigen deshalb nur einen kleinen Teil.",
+        "In Deutschland gibt es keine amtlichen Daten dazu, wer rassistisch markiert ist. Die Zeile dazu ist deshalb eine Mindestschätzung. Einwanderungsgeschichte und Rassismuserfahrung sind nicht dasselbe: Viele Schwarze Menschen und People of Color haben keine Einwanderungsgeschichte, und nicht alle Menschen mit Einwanderungsgeschichte erleben Rassismus.",
+        "Diskriminierung wird je nach Studie unterschiedlich gemessen. Die SOEP-Auswertung (13,1 %) fragt nach zwölf Lebensbereichen und ist eher vorsichtig. Der Rassismusmonitor fragt nach alltäglichen Erfahrungen und kommt auf deutlich höhere Werte.",
+        "EU-Werte sind anders erhoben als die deutschen Werte und deshalb nur grob vergleichbar. Unter jeder Zeile steht, was genau gemessen wurde.",
+        "Eine Person kann mehrere Merkmale haben. Addieren ist deshalb nicht zulässig.",
+        "Vorlage ist das Werkzeug „Wie viele Menschen?“ des DigitalService des Bundes (MIT-Lizenz). Auswahl und Ergänzung der Merkmale sind auf Safeguarding-Strukturen und Schutzkonzepte ausgerichtet."
+      ],
+      sourcesTitle: "Quellen",
+      toSource: "Zur Quelle",
+      footer1: "Ein Werkzeug von saferspaces. Melden. Reagieren. Verstehen.",
+      footer2: "Fragen oder Ergänzungen:"
+    },
+    en: {
+      title: "How many people?",
+      h1: "How many <em>people?</em>",
+      lead1: "If you know your audience, you can create a place where everyone feels comfortable and looked after and wants to come back. And a place that people who would stay away without protection structures want to come to.",
+      lead2: "Every person is unique and brings their own needs. For everyone to feel welcome, barriers on site, in communication and in reporting have to be as low as possible.",
+      lead3: "This page shows how many people in your audience or your team statistically bring certain impairments, health conditions or experiences. Most impairments are invisible. Use the numbers to work out what your safeguarding concept and structures need to cover. Every figure comes from official statistics or a published study, named right next to it.",
+      calcLabel: "Expected number of people: visitors, participants or members",
+      unit: "people",
+      calcBtn: "Calculate",
+      regionLabel: "Data for",
+      DE: "Germany", EU: "EU",
+      hint: "One person can have several characteristics. The numbers therefore do not add up to the total.",
+      resultEyebrow: "Result",
+      resultTitle: "With <em>{n}</em> people",
+      resultIntro: "Each row shows how many of these people statistically share a characteristic. Below it you see who the figure refers to and for which period, next to it the source. All sources with links are in the <a href=\"#quellen\">list of sources</a>.",
+      euNote: "EU figures come from Eurostat and the EU survey on gender-based violence. Where no comparable EU figure exists, the value for Germany is shown and marked “Germany only”.",
+      thName: "Characteristic", thPct: "Share", thCount: "Number", thSrc: "Source",
+      chipDE: "Germany only", chipWorld: "worldwide",
+      under1: "under 1",
+      genderNote: "{rate} of {who}, {base}. Calculated with {half} {whoDat}.",
+      women: "women", men: "men", womenDat: "women", menDat: "men",
+      methodTitle: "Method and limits",
+      method1: "The shares come from official statistics and published studies, mainly from the Robert Koch Institute, the Federal Statistical Office of Germany, the Federal Criminal Police Office and Eurostat. They are simply scaled to your number of visitors.",
+      method: [
+        "We only include figures that appear as such in the linked source. Figures that cannot be traced directly to a source were left out.",
+        "Your audience may differ considerably from the general population. Most studies survey adults. If your audience is younger, mental health conditions are more common (35.8 % instead of 27.7 % among 18- to 34-year-olds according to DEGS1-MH, Table 1) and age-related conditions such as hearing impairment or diabetes are less common. If it is older, the opposite tends to apply.",
+        "Almost all figures refer to Germany. The exception is autism, for which only a worldwide WHO estimate exists.",
+        "The figures on violence in Germany come from the LeSuBiA dark-field study by the Federal Criminal Police Office, the Federal Ministry of the Interior and the Federal Ministry for Family Affairs (2026). 15,479 people aged 16 to 85 were surveyed. The figures show how many women or men have experienced this at least once in their lives.",
+        "These rows assume 50 % women and 50 % men. Adjust this if you know your audience. LeSuBiA does not report separate figures for trans*, inter* and non-binary people. It does show that LGBTIQ* people are affected considerably more often: 19.5 % of them have experienced sexual assault, compared with 9.8 % of other respondents.",
+        "According to LeSuBiA, fewer than ten percent of experiences of violence are reported to the police, and fewer than 3 % of cases of sexual harassment against women. Police statistics therefore show only a small part.",
+        "There is no official data in Germany on who is racialised. The row on this is therefore a minimum estimate. Immigration history and experience of racism are not the same: many Black people and people of colour have no immigration history, and not everyone with an immigration history experiences racism.",
+        "Discrimination is measured differently depending on the study. The SOEP analysis (13.1 %) asks about twelve areas of life and is rather conservative. The racism monitor asks about everyday experiences and finds considerably higher values.",
+        "EU figures are collected differently from the German figures and are only roughly comparable. Each row states what exactly was measured.",
+        "One person can have several characteristics. Do not add the numbers up.",
+        "This page is based on the tool “Wie viele Menschen?” by DigitalService, the German federal government’s digital service (MIT licence). The selection of characteristics focuses on safeguarding structures and protection concepts."
+      ],
+      sourcesTitle: "Sources",
+      toSource: "Open source",
+      footer1: "A tool by saferspaces. Report. Respond. Understand.",
+      footer2: "Questions or additions:"
+    }
   };
 
-  /* pct = Anteil an allen Besuchenden in Prozent. note = Zusatz unter dem Merkmal. g = Anteil innerhalb eines Geschlechts, wird mit 50 % hochgerechnet. */
+  /* Quellen: u = Link, k = Kurzname in der Tabelle, t = Eintrag im Quellenverzeichnis. Jede Zahl steht so in der Quelle. */
+  var S = {
+    jacobi: {u: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6878234/", k: "DEGS1-MH",
+      t: {de: "Jacobi et al. (2014): Twelve-month prevalence, comorbidity and correlates of mental disorders in Germany (DEGS1-MH). International Journal of Methods in Psychiatric Research 23(3), Tabelle 1", en: "Jacobi et al. (2014): Twelve-month prevalence, comorbidity and correlates of mental disorders in Germany (DEGS1-MH). International Journal of Methods in Psychiatric Research 23(3), Table 1"}},
+    oecd: {u: "https://www.oecd.org/en/publications/survey-of-adults-skills-2023-country-notes_ab4f6b8c-en/germany_5f81cb66-en.html", k: "OECD 2023",
+      t: {de: "OECD: Survey of Adult Skills 2023 (PIAAC), Länderbericht Deutschland", en: "OECD: Survey of Adult Skills 2023 (PIAAC), country note Germany"}},
+    adhs: {u: "https://pubmed.ncbi.nlm.nih.gov/21499942/", k: "de Zwaan 2012",
+      t: "de Zwaan et al. (2012): The estimated prevalence and correlates of adult ADHD in a German community sample. European Archives of Psychiatry and Clinical Neuroscience 262"},
+    who: {u: "https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders", k: "WHO",
+      t: {de: "Weltgesundheitsorganisation (WHO): Fact sheet Autism", en: "World Health Organization (WHO): Fact sheet Autism"}},
+    zva: {u: "https://www.zva.de/wp-content/uploads/ZVA-Brillenstudie-2024.pdf", k: "ZVA 2024",
+      t: {de: "Zentralverband der Augenoptiker und Optometristen: Brillenstudie 2024", en: "Zentralverband der Augenoptiker und Optometristen (German opticians’ association): Brillenstudie 2024"}},
+    hoeren: {u: "https://doi.org/10.25646/14328", k: "RKI 2026",
+      t: {de: "Krause et al. (2026): Prevalence and trends in self-reported hearing difficulties among adults in Germany. Journal of Health Monitoring, Robert Koch-Institut", en: "Krause et al. (2026): Prevalence and trends in self-reported hearing difficulties among adults in Germany. Journal of Health Monitoring, Robert Koch Institute"}},
+    farbe: {u: "https://gesund.bund.de/farbenblindheit", k: "gesund.bund.de",
+      t: {de: "Bundesministerium für Gesundheit, gesund.bund.de: Farbenblindheit", en: "Federal Ministry of Health, gesund.bund.de: Farbenblindheit (colour blindness)"}},
+    chronisch: {u: "https://www.gbe.rki.de/chronisches-kranksein", k: "RKI 2024",
+      t: {de: "Robert Koch-Institut, Gesundheitsberichterstattung des Bundes: Chronisches Kranksein (ab 18 Jahre)", en: "Robert Koch Institute, Federal Health Reporting: Chronisches Kranksein (chronic illness, 18+)"}},
+    geda: {u: "https://edoc.rki.de/bitstream/176904/8749/1/JoHM_03_2021_GEDA_Gesundheitliche_Lage.pdf", k: "RKI GEDA 2019/2020",
+      t: {de: "Heidemann et al. (2021): Gesundheitliche Lage von Erwachsenen in Deutschland. Ergebnisse aus GEDA 2019/2020-EHIS. Journal of Health Monitoring 6(3), Robert Koch-Institut", en: "Heidemann et al. (2021): Health situation of adults in Germany. Results from GEDA 2019/2020-EHIS. Journal of Health Monitoring 6(3), Robert Koch Institute"}},
+    migraene: {u: "https://doi.org/10.25646/6988.2", k: "RKI BURDEN 2020",
+      t: {de: "Porst et al. (2020): Migräne und Spannungskopfschmerz in Deutschland. Prävalenz und Erkrankungsschwere im Rahmen der Krankheitslast-Studie BURDEN 2020. Journal of Health Monitoring, Robert Koch-Institut", en: "Porst et al. (2020): Migraine and tension-type headache in Germany. Prevalence and disease severity from the BURDEN 2020 Burden of Disease Study. Journal of Health Monitoring, Robert Koch Institute"}},
+    mid: {u: "https://www.mobilitaet-in-deutschland.de/pdf/MiD2023_Ergebnisbericht.pdf", k: "MiD 2023",
+      t: {de: "Mobilität in Deutschland 2023, Ergebnisbericht (im Auftrag des Bundesministeriums für Verkehr)", en: "Mobilität in Deutschland 2023 (Mobility in Germany), results report, commissioned by the Federal Ministry of Transport"}},
+    diabetes: {u: "https://www.gbe.rki.de/EN/Topics/HealthStatus/PhysicalHealth/DiabetesMellitus/DiabetesPrevalence18Plus/DiabetesPrevalence_node.html", k: "RKI 2024",
+      t: {de: "Robert Koch-Institut, Gesundheitsberichterstattung des Bundes: Diabetes mellitus, Prävalenz ab 18 Jahren", en: "Robert Koch Institute, Federal Health Reporting: Diabetes mellitus, prevalence from 18 years"}},
+    schwerb: {u: "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/07/PD26_246_227.html", k: "Destatis 2026",
+      t: {de: "Statistisches Bundesamt: Pressemitteilung Nr. 246 vom 13. Juli 2026, 7,8 Millionen schwerbehinderte Menschen leben in Deutschland", en: "Federal Statistical Office of Germany (Destatis): press release no. 246, 13 July 2026, on people with severe disabilities"}},
+    gehen: {u: "https://www.gbe.rki.de/koerperliche-einschraenkungen", k: "RKI 2024",
+      t: {de: "Robert Koch-Institut, Gesundheitsberichterstattung des Bundes: Körperliche Einschränkungen (ab 18 Jahre)", en: "Robert Koch Institute, Federal Health Reporting: Körperliche Einschränkungen (physical limitations, 18+)"}},
+    einw: {u: "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/04/PD26_128_125.html", k: "Destatis 2026",
+      t: {de: "Statistisches Bundesamt: Pressemitteilung Nr. 128 vom April 2026 zur Bevölkerung mit Einwanderungsgeschichte (Mikrozensus 2025)", en: "Federal Statistical Office of Germany (Destatis): press release no. 128, April 2026, on the population with an immigration history (microcensus 2025)"}},
+    sprache: {u: "https://www.destatis.de/DE/Presse/Pressemitteilungen/Zahl-der-Woche/2026/PD26_08_p002.html", k: "Destatis 2026",
+      t: {de: "Statistisches Bundesamt: Zahl der Woche Nr. 08 vom 17. Februar 2026, 77 % der Bevölkerung sprechen zu Hause ausschließlich Deutsch", en: "Federal Statistical Office of Germany (Destatis): figure of the week no. 08, 17 February 2026, on languages spoken at home"}},
+    bitkom: {u: "https://www.bitkom.org/Presse/Presseinformation/Smartphone-KI-fuer-ein-Drittel-Alltag", k: "Bitkom 2026",
+      t: {de: "Bitkom: Presseinformation „Smartphone-KI ist für ein Drittel bereits Alltag“ (2026)", en: "Bitkom (German digital industry association): press release on smartphone use (2026)"}},
+    ipsos25: {u: "https://www.ipsos.com/de-de/node/1049076", k: "Ipsos 2025",
+      t: {de: "Ipsos: LGBT+ Pride Report 2025, Ergebnisse für Deutschland", en: "Ipsos: LGBT+ Pride Report 2025, results for Germany"}},
+    ipsos24: {u: "https://www.ipsos.com/de-de/node/1023651", k: "Ipsos 2024",
+      t: {de: "Ipsos: LGBT+ Pride Report 2024, Ergebnisse für Deutschland", en: "Ipsos: LGBT+ Pride Report 2024, results for Germany"}},
+    soep: {u: "https://www.antidiskriminierungsstelle.gov.de/SharedDocs/downloads/DE/publikationen/Expertisen/soep_auswertung.pdf?__blob=publicationFile", k: "ADS/SOEP 2026",
+      t: {de: "Antidiskriminierungsstelle des Bundes: Wie Deutschland Diskriminierung erlebt. Sonderauswertung des Sozio-oekonomischen Panels (SOEP), März 2026", en: "Federal Anti-Discrimination Agency: Wie Deutschland Diskriminierung erlebt (How Germany experiences discrimination). Special analysis of the Socio-Economic Panel (SOEP), March 2026"}},
+    nadira22: {u: "https://www.bundesregierung.de/breg-de/aktuelles/studie-rassistische-realitaeten-2030724", k: "Rassismusmonitor 2022",
+      t: {de: "Nationaler Diskriminierungs- und Rassismusmonitor (DeZIM): Rassistische Realitäten, 2022, Meldung der Bundesregierung", en: "National Discrimination and Racism Monitor (DeZIM): Rassistische Realitäten (Racist realities), 2022, federal government news item"}},
+    nadira26: {u: "https://www.rassismusmonitor.de/fileadmin/user_upload/NaDiRa/Publikationen/Verfestigte_Abwertung/Verfestigte_Abwertungen.pdf", k: "Rassismusmonitor 2026",
+      t: {de: "Nationaler Diskriminierungs- und Rassismusmonitor (DeZIM): Verfestigte Abwertungen, fragiles Vertrauen. Monitoringbericht, 19. März 2026", en: "National Discrimination and Racism Monitor (DeZIM): Verfestigte Abwertungen, fragiles Vertrauen. Monitoring report, 19 March 2026"}},
+    lesubia: {u: "https://www.bka.de/SharedDocs/Downloads/DE/Publikationen/Publikationsreihen/Forschungsergebnisse/260210_LeSuBiA_Ergebnisse_I.pdf?__blob=publicationFile&v=10", k: "LeSuBiA 2026",
+      t: {de: "Bundeskriminalamt, Bundesministerium des Innern, Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend: Dunkelfeldstudie LeSuBiA (Lebenssituation, Sicherheit und Belastung im Alltag), Ergebnisse I, 2026, Tabelle 1", en: "Federal Criminal Police Office, Federal Ministry of the Interior and Federal Ministry for Family Affairs: LeSuBiA dark-field study, Results I, 2026, Table 1"}},
+    ehis_cd: {u: "https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_cd1e/default/table", k: "Eurostat EHIS 2019",
+      t: {de: "Eurostat: European Health Interview Survey 2019, Tabelle hlth_ehis_cd1e (chronische Erkrankungen nach Art)", en: "Eurostat: European Health Interview Survey 2019, table hlth_ehis_cd1e (chronic conditions by type)"}},
+    ehis_pl: {u: "https://ec.europa.eu/eurostat/databrowser/view/hlth_ehis_pl1e/default/table", k: "Eurostat EHIS 2019",
+      t: {de: "Eurostat: European Health Interview Survey 2019, Tabelle hlth_ehis_pl1e (körperliche und sensorische Einschränkungen)", en: "Eurostat: European Health Interview Survey 2019, table hlth_ehis_pl1e (physical and sensory functional limitations)"}},
+    silc: {u: "https://ec.europa.eu/eurostat/databrowser/view/hlth_silc_04/default/table", k: "Eurostat EU-SILC 2025",
+      t: {de: "Eurostat: EU-SILC 2025, Tabelle hlth_silc_04 (lang andauernde Krankheit oder Gesundheitsproblem)", en: "Eurostat: EU-SILC 2025, table hlth_silc_04 (long-standing illness or health problem)"}},
+    gbv: {u: "https://ec.europa.eu/eurostat/databrowser/view/gbv_any_type/default/table", k: "EU-GBV 2021",
+      t: {de: "Eurostat, FRA und EIGE: EU-Erhebung zu geschlechtsspezifischer Gewalt (Welle 2021), Tabelle gbv_any_type", en: "Eurostat, FRA and EIGE: EU gender-based violence survey (2021 wave), table gbv_any_type"}}
+  };
+
+  /* Basis jeder Zahl: für wen und für welchen Zeitraum sie gilt */
+  var B = {
+    degs: {de: "Erwachsene von 18 bis 79 Jahren, letzte 12 Monate, erhoben 2009 bis 2012", en: "adults aged 18 to 79, past 12 months, surveyed 2009 to 2012"},
+    oecd: {de: "Erwachsene von 16 bis 65 Jahren, höchstens Kompetenzstufe 1, erhoben 2022/2023", en: "adults aged 16 to 65, at or below proficiency level 1, surveyed 2022/2023"},
+    adhs: {de: "Erwachsene von 18 bis 64 Jahren, Screening per Selbstauskunft, veröffentlicht 2012", en: "adults aged 18 to 64, self-report screening, published 2012"},
+    who: {de: "weltweite Schätzung für 2021: etwa 1 von 127 Menschen", en: "worldwide estimate for 2021: about 1 in 127 people"},
+    zva: {de: "ab 16 Jahren, Brille, Kontaktlinsen oder Lesebrille, erhoben 2024", en: "aged 16 and over, glasses, contact lenses or reading glasses, surveyed 2024"},
+    geda1920: {de: "Erwachsene ab 18 Jahren, Selbstauskunft, erhoben 2019/2020", en: "adults aged 18 and over, self-reported, surveyed 2019/2020"},
+    geda12: {de: "Erwachsene ab 18 Jahren, letzte 12 Monate, erhoben 2019/2020", en: "adults aged 18 and over, past 12 months, surveyed 2019/2020"},
+    farbe: {de: "auch leichte Formen", en: "including mild forms"},
+    rki24: {de: "Erwachsene ab 18 Jahren, Selbstauskunft, 2024", en: "adults aged 18 and over, self-reported, 2024"},
+    diab: {de: "Erwachsene ab 18 Jahren, ärztlich festgestellt, 2024", en: "adults aged 18 and over, diagnosed by a doctor, 2024"},
+    gehen: {de: "Erwachsene ab 18 Jahren, 500 Meter gehen oder 12 Stufen steigen, 2024", en: "adults aged 18 and over, walking 500 metres or climbing 12 steps, 2024"},
+    burden: {de: "Erwachsene ab 18 Jahren, letzte 12 Monate, erhoben 2019/2020", en: "adults aged 18 and over, past 12 months, surveyed 2019/2020"},
+    mid: {de: "ab 18 Jahren, Selbstauskunft, erhoben 2023/2024", en: "aged 18 and over, self-reported, surveyed 2023/2024"},
+    schwerb: {de: "Gesamtbevölkerung, amtlich anerkannt, Stand Ende 2025", en: "total population, officially recognised, end of 2025"},
+    einw: {de: "Bevölkerung in Privathaushalten, selbst oder beide Eltern nach 1950 eingewandert, 2025", en: "population in private households, who immigrated themselves or whose parents both did after 1950, 2025"},
+    sprache: {de: "Bevölkerung in Privathaushalten, 2024", en: "population in private households, 2024"},
+    bitkom: {de: "ab 16 Jahren, 86 % nutzen ein Smartphone, erhoben 2026", en: "aged 16 and over, 86 % use a smartphone, surveyed 2026"},
+    ipsos25: {de: "Online-Befragung, 16 bis 74 Jahre, 2025", en: "online survey, aged 16 to 74, 2025"},
+    ipsos24: {de: "Online-Befragung, 16 bis 74 Jahre, 2024", en: "online survey, aged 16 to 74, 2024"},
+    lesubia: {de: "16 bis 85 Jahre, im ganzen bisherigen Leben, erhoben 2023 bis 2025", en: "aged 16 to 85, at any point in life, surveyed 2023 to 2025"},
+    soep: {de: "ab 17 Jahren, in mindestens einem von zwölf Lebensbereichen wie Arbeit, Freizeit, Behörden oder öffentlicher Raum, erhoben 2022", en: "aged 17 and over, in at least one of twelve areas of life such as work, leisure, public authorities or public space, surveyed 2022"},
+    soepRace: {de: "werden wegen äußerer Merkmale wie Hautfarbe als nicht deutsch wahrgenommen. Gefragt wurden nur Menschen mit Migrationshintergrund, der tatsächliche Anteil ist höher. Erhoben 2022", en: "perceived as not German because of external features such as skin colour. Only people with a migration background were asked, so the actual share is higher. Surveyed 2022"},
+    nadira22: {de: "Befragung für den Rassismusmonitor, veröffentlicht 2022", en: "survey for the racism monitor, published 2022"},
+    ehis: {de: "15 Jahre und älter, Selbstauskunft, erhoben 2019", en: "aged 15 and over, self-reported, surveyed 2019"},
+    ehisDep: {de: "15 Jahre und älter, selbst angegebene chronische Depression, letzte 12 Monate, 2019", en: "aged 15 and over, self-reported chronic depression, past 12 months, 2019"},
+    ehisHear: {de: "15 Jahre und älter, Schwierigkeiten, einem Gespräch zu folgen, auch mit Hörgerät, 2019", en: "aged 15 and over, difficulty following a conversation, even with a hearing aid, 2019"},
+    ehisWalk: {de: "15 Jahre und älter, Schwierigkeiten, 500 Meter ohne Hilfe zu gehen, 2019", en: "aged 15 and over, difficulty walking 500 metres without help, 2019"},
+    ehisWalkSev: {de: "15 Jahre und älter, 500 Meter ohne Hilfe gehen ist sehr schwer oder unmöglich, 2019", en: "aged 15 and over, walking 500 metres without help is very difficult or impossible, 2019"},
+    silc: {de: "16 Jahre und älter, Selbstauskunft, 2025, andere Erhebung als der deutsche Wert", en: "aged 16 and over, self-reported, 2025, different survey from the German figure"},
+    gbv: {de: "18 bis 74 Jahre, sexuelle Gewalt im Erwachsenenalter, Welle 2021", en: "aged 18 to 74, sexual violence in adulthood, 2021 wave"}
+  };
+
+  function v(p, s, b){ return {p: p, s: s, b: b}; }
+
+  /* p = Anteil in Prozent. Bei g (Frauen oder Männer) ist p der Anteil innerhalb des Geschlechts und wird mit 50 % hochgerechnet. */
   var GROUPS = [
     {
-      title: "Psychische Gesundheit",
-      hint: "Enge, Lautstärke, wenig Schlaf und Alkohol treffen auf Menschen, die ohnehin belastet sind. Ein ruhiger Rückzugsort und ein Team, das zuhört, gehören deshalb zur Grundausstattung.",
+      title: {de: "Psychische Gesundheit", en: "Mental health"},
+      hint: {de: "Enge, Lärm, lange Tage und Alkohol treffen auf Menschen, die schon viel mittragen. Ein ruhiger Rückzugsort und ein Team, das zuhört, gehören deshalb zur Grundausstattung.",
+             en: "Crowds, noise, long days and alcohol meet people who are already carrying a lot. A quiet place to retreat to and a team that listens are therefore part of the basics."},
       rows: [
-        ["Mindestens eine psychische Störung (letzte 12 Monate)", 27.8, S.jacobi],
-        ["Angststörung", 15.4, S.jacobi],
-        ["Depression", 8.2, S.jacobi],
-        ["Agoraphobie (Angst vor Menschenmengen, Enge, Weite)", 4.0, S.jacobi],
-        ["Zwangsstörung", 3.6, S.jacobi],
-        ["Alkoholabhängigkeit", 3.0, S.jacobi],
-        ["Soziale Phobie", 2.8, S.jacobi],
-        ["Mögliche psychotische Störung", 2.6, S.jacobi],
-        ["Posttraumatische Belastungsstörung", 2.3, S.jacobi],
-        ["Panikstörung", 2.0, S.jacobi],
-        ["Bipolare Störung", 1.5, S.jacobi],
-        ["Essstörung", 0.9, S.jacobi]
+        {id: "psych", de: "Menschen, die in den letzten 12 Monaten eine psychische Erkrankung hatten", en: "People who had a mental health condition in the past 12 months", DE: v(27.7, S.jacobi, B.degs)},
+        {de: "Menschen mit Angststörung", en: "People with an anxiety disorder", DE: v(15.3, S.jacobi, B.degs)},
+        {de: "Menschen mit Depression", en: "People with depression", DE: v(7.7, S.jacobi, B.degs), EU: v(7.2, S.ehis_cd, B.ehisDep)},
+        {de: "Menschen mit Agoraphobie (Angst an Orten, die man schwer verlassen kann, etwa in Menschenmengen)", en: "People with agoraphobia (fear of places that are hard to leave, such as crowds)", DE: v(4.0, S.jacobi, B.degs)},
+        {de: "Menschen mit Zwangsstörung", en: "People with obsessive-compulsive disorder", DE: v(3.6, S.jacobi, B.degs)},
+        {de: "Menschen mit Alkoholabhängigkeit", en: "People with alcohol dependence", DE: v(3.0, S.jacobi, B.degs)},
+        {de: "Menschen mit sozialer Angststörung", en: "People with social anxiety disorder", DE: v(2.7, S.jacobi, B.degs)},
+        {de: "Menschen mit Hinweisen auf eine psychotische Erkrankung", en: "People with signs of a psychotic disorder", DE: v(2.6, S.jacobi, B.degs)},
+        {de: "Menschen mit posttraumatischer Belastungsstörung", en: "People with post-traumatic stress disorder", DE: v(2.3, S.jacobi, B.degs)},
+        {de: "Menschen mit Panikstörung", en: "People with panic disorder", DE: v(2.0, S.jacobi, B.degs)},
+        {de: "Menschen mit bipolarer Störung", en: "People with bipolar disorder", DE: v(1.5, S.jacobi, B.degs)},
+        {de: "Menschen mit Essstörung", en: "People with an eating disorder", DE: v(0.9, S.jacobi, B.degs)}
       ]
     },
     {
-      title: "Neurodivergenz und Lernen",
-      hint: "Lange Texte, kleine Schrift, Reizüberflutung und komplizierte Wege funktionieren für viele nicht. Melden sollte in wenigen Schritten gehen, ohne Registrierung und ohne Lesen von Kleingedrucktem.",
+      title: {de: "Neurodivergenz, Lesen und Rechnen", en: "Neurodivergence, reading and numeracy"},
+      hint: {de: "Lange Texte, kleine Schrift, Reizüberflutung und komplizierte Wege funktionieren für viele nicht. Melden sollte in wenigen Schritten gehen, ohne Registrierung und ohne Kleingedrucktes.",
+             en: "Long texts, small print, sensory overload and complicated routes do not work for many people. Reporting should take only a few steps, with no sign-up and no small print."},
       rows: [
-        ["Rechenschwäche (geringe Alltagsmathematik)", 20.0, S.oecd],
-        ["Lese- und Schreibschwäche (gering literalisiert)", 12.1, S.leo],
-        ["Rechenstörung (Dyskalkulie)", 5.0, S.dyskalkulie],
-        ["ADHS", 4.7, S.adhs],
-        ["Lernschwächen und Lernstörungen", 2.3, S.lernen],
-        ["Autismus", 1.0, S.who]
+        {de: "Menschen, denen Lesen schwerfällt", en: "People who find reading difficult", DE: v(22, S.oecd, B.oecd)},
+        {de: "Menschen, denen Rechnen im Alltag schwerfällt", en: "People who find everyday maths difficult", DE: v(20, S.oecd, B.oecd)},
+        {de: "Menschen mit ADHS", en: "People with ADHD", DE: v(4.7, S.adhs, B.adhs)},
+        {de: "Autistische Menschen", en: "Autistic people", world: true, DE: v(100/127, S.who, B.who)}
       ]
     },
     {
-      title: "Sehen und Hören",
-      hint: "Durchsagen gehen in der Lautstärke unter, Schilder in der Dunkelheit. Informationen und Meldewege erreichen mehr Menschen, wenn sie über mehrere Kanäle laufen: sichtbar, hörbar, persönlich.",
+      title: {de: "Sehen und Hören", en: "Seeing and hearing"},
+      hint: {de: "Durchsagen gehen im Lärm unter, Schilder werden übersehen. Informationen und Meldewege erreichen mehr Menschen, wenn sie über mehrere Kanäle laufen: sichtbar, hörbar, persönlich.",
+             en: "Announcements get lost in the noise, signs get overlooked. Information and reporting channels reach more people when they run on several channels: visible, audible, in person."},
       rows: [
-        ["Sehschwäche (Brille oder Kontaktlinsen)", 66.0, S.zva],
-        ["Probleme beim Hören", 32.5, S.hoeren],
-        ["Tinnitus, der als störend empfunden wird", 9.8, S.tinnitus],
-        ["Hörgerät", 5.4, S.hoeren],
-        ["Rot-Grün-Sehschwäche", 4.2, S.proretina],
-        ["Gehörlosigkeit", 0.1, S.gehoerlos],
-        ["Vollständige Farbenblindheit", 0.004, S.proretina]
+        {de: "Menschen, die eine Sehhilfe nutzen", en: "People who use visual aids", DE: v(66, S.zva, B.zva)},
+        {id: "hear", de: "Menschen mit Hörbeeinträchtigung", en: "People with hearing impairment", DE: v(32.5, S.hoeren, B.geda1920), EU: v(24.1, S.ehis_pl, B.ehisHear)},
+        {de: "Männer mit Farbsinnstörung, meist Rot-Grün", en: "Men with colour vision deficiency, mostly red-green", g: "men", DE: v(8, S.farbe, B.farbe)},
+        {de: "Menschen, die ein Hörgerät nutzen", en: "People who use a hearing aid", DE: v(5.4, S.hoeren, B.geda1920)},
+        {de: "Gehörlose Menschen", en: "Deaf people", DE: v(0.5, S.hoeren, B.geda1920)},
+        {de: "Frauen mit Farbsinnstörung, meist Rot-Grün", en: "Women with colour vision deficiency, mostly red-green", g: "women", DE: v(0.4, S.farbe, B.farbe)}
       ]
     },
     {
-      title: "Körper, Mobilität und chronische Erkrankungen",
-      hint: "Wege, Boden, Toiletten, Sanitätsdienst. Viele Erkrankungen sieht man nicht, bis es ein Notfall wird. Ein Team, das weiß, wohin es weiterleitet, verkürzt die Zeit bis zur Hilfe.",
+      title: {de: "Körper, Mobilität und chronische Erkrankungen", en: "Body, mobility and chronic conditions"},
+      hint: {de: "Wege, Böden, Toiletten, Erste Hilfe. Viele Erkrankungen sieht man nicht, bis es ein Notfall wird. Ein Team, das weiß, wohin es weiterleitet, verkürzt die Zeit bis zur Hilfe.",
+             en: "Paths, ground, toilets, first aid. Many conditions stay invisible until there is an emergency. A team that knows where to refer people shortens the time until help arrives."},
       rows: [
-        ["Chronische Erkrankung oder dauerhaftes Gesundheitsproblem", 53.7, S.chronisch],
-        ["Allergien (außer Asthma)", 28.1, S.allergie],
-        ["Mobilitätseinschränkung", 14.0, S.mid],
-        ["Migräne", 10.5, S.migraene],
-        ["Schwerbehinderung", 9.4, S.schwerb],
-        ["Diabetes (bekannt und unerkannt)", 9.2, S.diabetes],
-        ["Starke Probleme beim Gehen", 7.0, S.gehen],
-        ["Asthma", 6.2, S.asthma],
-        ["Rollstuhl, Rollator oder E-Mobil", 3.8, S.mid],
-        ["Epilepsie", 0.6, S.epilepsie]
+        {de: "Menschen mit chronischer Erkrankung oder lang andauerndem Gesundheitsproblem", en: "People with a chronic illness or long-standing health problem", DE: v(53.7, S.chronisch, B.rki24), EU: v(36.5, S.silc, B.silc)},
+        {de: "Menschen mit Allergien (ohne Asthma)", en: "People with allergies (excluding asthma)", DE: v(30.9, S.geda, B.geda12), EU: v(18.5, S.ehis_cd, B.ehis)},
+        {de: "Frauen mit Migräne", en: "Women with migraine", g: "women", DE: v(14.8, S.migraene, B.burden)},
+        {de: "Menschen mit Mobilitätseinschränkung", en: "People with limited mobility", DE: v(14, S.mid, B.mid), EU: v(16.3, S.ehis_pl, B.ehisWalk)},
+        {de: "Menschen mit Diabetes", en: "People with diabetes", DE: v(10.3, S.diabetes, B.diab), EU: v(7.4, S.ehis_cd, B.ehis)},
+        {de: "Menschen mit anerkannter Schwerbehinderung", en: "People with an officially recognised severe disability", DE: v(9.4, S.schwerb, B.schwerb)},
+        {de: "Menschen mit Asthma", en: "People with asthma", DE: v(8.0, S.geda, B.geda12), EU: v(5.7, S.ehis_cd, B.ehis)},
+        {de: "Menschen, für die Gehen oder Treppensteigen sehr schwer ist", en: "People for whom walking or climbing stairs is very difficult", DE: v(7.0, S.gehen, B.gehen), EU: v(6.7, S.ehis_pl, B.ehisWalkSev)},
+        {de: "Männer mit Migräne", en: "Men with migraine", g: "men", DE: v(6.0, S.migraene, B.burden)}
       ]
     },
     {
-      title: "Sprache und Zugang",
-      hint: "Wer kein Deutsch spricht oder kein Smartphone dabeihat, braucht trotzdem einen Weg zum Team. Mehrsprachig, per QR-Code, am Infopoint und über Menschen vor Ort.",
+      title: {de: "Sprache und Zugang", en: "Language and access"},
+      hint: {de: "Wer kein Deutsch spricht oder kein Smartphone nutzt, braucht trotzdem einen Weg zum Team. Mehrsprachig, per QR-Code, am Infopoint und über Menschen vor Ort.",
+             en: "People who do not speak German or do not use a smartphone still need a way to reach the team. In several languages, via QR code, at the info point and through people on site."},
       rows: [
-        ["Mit Einwanderungsgeschichte", 26.3, S.einwanderung],
-        ["Andere Sprache als Deutsch zu Hause", 18.6, S.sprache],
-        ["Kein Smartphone", 14.0, S.smartphone]
+        {de: "Menschen mit Einwanderungsgeschichte", en: "People with an immigration history", DE: v(26.3, S.einw, B.einw)},
+        {de: "Menschen, die zu Hause neben Deutsch weitere Sprachen sprechen", en: "People who speak other languages besides German at home", DE: v(17, S.sprache, B.sprache)},
+        {de: "Menschen, die kein Smartphone nutzen", en: "People who do not use a smartphone", DE: v(14, S.bitkom, B.bitkom)},
+        {de: "Menschen, die zu Hause kein Deutsch sprechen", en: "People who do not speak German at home", DE: v(6, S.sprache, B.sprache)}
       ]
     },
     {
-      title: "Erfahrungen und Identität",
-      hint: "Viele Besuchende bringen Gewalterfahrungen und Diskriminierungserfahrungen mit. Ein anonymer Meldeweg ist unverzichtbar, um der Dunkelziffer entgegenzuwirken. Was gemeldet wird, fließt zurück in die Prävention. Die Zahlen zu Gewalt stammen aus der Dunkelfeldstudie LeSuBiA (2026) und zählen Erfahrungen ab 16 Jahren im ganzen bisherigen Leben.",
+      title: {de: "Erfahrungen und Identität", en: "Experiences and identity"},
+      hint: {de: "Viele Menschen bringen Gewalterfahrungen und Diskriminierungserfahrungen mit. Ein anonymer Meldeweg ist unverzichtbar, um der Dunkelziffer entgegenzuwirken. Was gemeldet wird, fließt zurück in die Prävention. Manche Gruppen trifft Diskriminierung besonders oft: Fast drei Viertel der rassistisch markierten Menschen (73 %) berichten laut Rassismusmonitor 2026 von alltäglicher Diskriminierung. Von den trans*, inter* und nicht-binären Menschen hat fast jede dritte Person (31,8 %) in den letzten zwölf Monaten Diskriminierung erlebt (SOEP-Auswertung 2026).",
+             en: "Many people carry experiences of violence and discrimination. An anonymous way to report is essential to reduce the number of unreported cases. What is reported feeds back into prevention. Some groups face discrimination particularly often: according to the 2026 racism monitor, almost three quarters of racialised people (73 %) report everyday discrimination. Almost one in three trans*, inter* and non-binary people (31.8 %) experienced discrimination in the past twelve months (SOEP analysis 2026)."},
       rows: [
-        ["Frauen, die sexuelle Belästigung erlebt haben", 62.3/2, S.lesubia, null, {rate: 62.3, who: "Frauen"}],
-        ["Männer, die sexuelle Belästigung erlebt haben", 28.6/2, S.lesubia, null, {rate: 28.6, who: "Männer"}],
-        ["Queere Menschen (LGBTQIA+)", 12.0, S.ipsos25],
-        ["Frauen, die einen sexuellen Übergriff erlebt haben", 17.8/2, S.lesubia, null, {rate: 17.8, who: "Frauen"}],
-        ["Frauen, denen K.-o.-Tropfen verabreicht wurden", 6.7/2, S.lesubia, null, {rate: 6.7, who: "Frauen"}],
-        ["Männer, die einen sexuellen Übergriff erlebt haben", 4.3/2, S.lesubia, null, {rate: 4.3, who: "Männer"}],
-        ["Männer, denen K.-o.-Tropfen verabreicht wurden", 3.7/2, S.lesubia, null, {rate: 3.7, who: "Männer"}],
-        ["Trans, nicht-binär oder genderfluid", 1.0, S.ipsos24]
+        {id: "harass", de: "Frauen, die sexuelle Belästigung erlebt haben", en: "Women who have experienced sexual harassment", g: "women", DE: v(62.3, S.lesubia, B.lesubia)},
+        {de: "Männer, die sexuelle Belästigung erlebt haben", en: "Men who have experienced sexual harassment", g: "men", DE: v(28.6, S.lesubia, B.lesubia)},
+        {de: "Menschen, die selbst Rassismus erlebt haben", en: "People who have experienced racism themselves", DE: v(22.2, S.nadira22, B.nadira22)},
+        {de: "Menschen, die in den letzten 12 Monaten Diskriminierung erlebt haben", en: "People who experienced discrimination in the past 12 months", DE: v(13.1, S.soep, B.soep)},
+        {de: "Rassistisch markierte Menschen (Mindestschätzung)", en: "Racialised people (minimum estimate)", DE: v(6.5, S.soep, B.soepRace)},
+        {de: "Queere Menschen (LGBTQIA+)", en: "Queer people (LGBTQIA+)", DE: v(12, S.ipsos25, B.ipsos25)},
+        {de: "Frauen, die einen sexuellen Übergriff erlebt haben", en: "Women who have experienced sexual assault", g: "women", DE: v(17.8, S.lesubia, B.lesubia), EU: v(17.2, S.gbv, B.gbv)},
+        {de: "Frauen, denen K.-o.-Tropfen verabreicht wurden", en: "Women whose drinks were spiked with knock-out drops", g: "women", DE: v(6.7, S.lesubia, B.lesubia)},
+        {de: "Männer, die einen sexuellen Übergriff erlebt haben", en: "Men who have experienced sexual assault", g: "men", DE: v(4.3, S.lesubia, B.lesubia)},
+        {de: "Männer, denen K.-o.-Tropfen verabreicht wurden", en: "Men whose drinks were spiked with knock-out drops", g: "men", DE: v(3.7, S.lesubia, B.lesubia)},
+        {de: "Trans*, nicht-binäre oder genderfluide Menschen", en: "Trans*, non-binary or genderfluid people", DE: v(1, S.ipsos24, B.ipsos24)}
       ]
     }
   ];
 
-  var TILES = [
-    ["Menschen mit mindestens einer psychischen Störung in den letzten 12 Monaten", 27.8],
-    ["Frauen, die bereits sexuelle Belästigung erlebt haben", 62.3/2],
-    ["Menschen, die zu Hause eine andere Sprache als Deutsch sprechen", 18.6]
-  ];
+  var TILES = ["psych", "harass", "hear"];
 
-  var nf = new Intl.NumberFormat("de-DE");
-  function count(n, pct){
-    var v = n * pct / 100;
-    if (v >= 1000) v = Math.round(v / 10) * 10;
-    else if (v >= 100) v = Math.round(v);
-    else if (v >= 10) v = Math.round(v);
-    else if (v >= 1) v = Math.round(v);
-    else return v > 0 ? "unter 1" : "0";
-    return nf.format(v);
-  }
-  function pctText(pct){
-    if (pct < 0.1) return pct.toLocaleString("de-DE", {maximumFractionDigits: 3}) + " %";
-    var r = Math.round(pct * 10) / 10;
-    return r.toLocaleString("de-DE", {minimumFractionDigits: Number.isInteger(r) ? 0 : 1, maximumFractionDigits: 1}) + " %";
-  }
+  var lang = "de", region = "DE";
+  try { var sl = localStorage.getItem("wvm-lang"); if (sl === "de" || sl === "en") lang = sl; else if (!/^de/i.test(navigator.language || "")) lang = "en"; } catch (e) { if (!/^de/i.test(navigator.language || "")) lang = "en"; }
+  try { var sr = localStorage.getItem("wvm-region"); if (sr === "DE" || sr === "EU") region = sr; } catch (e) {}
+
+  function L(x){ return (x && typeof x === "object") ? x[lang] : x; }
+  function t(k){ return T[lang][k]; }
+  function nf(){ return new Intl.NumberFormat(lang === "de" ? "de-DE" : "en-GB"); }
   function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
+  function count(n, pct){
+    var x = n * pct / 100;
+    if (x < 1) return x > 0 ? t("under1") : "0";
+    x = x >= 1000 ? Math.round(x / 10) * 10 : Math.round(x);
+    return nf().format(x);
+  }
+  function pctText(pct){
+    var loc = lang === "de" ? "de-DE" : "en-GB";
+    var r = Math.round(pct * 10) / 10;
+    return r.toLocaleString(loc, {minimumFractionDigits: Number.isInteger(r) ? 0 : 1, maximumFractionDigits: 1}) + " %";
+  }
+
+  /* Wert für die gewählte Region; fehlt ein EU-Wert, gilt der deutsche mit Hinweis */
+  function pick(r){
+    if (region === "EU" && r.EU) return {val: r.EU, chip: ""};
+    var chip = r.world ? t("chipWorld") : (region === "EU" ? t("chipDE") : "");
+    return {val: r.DE, chip: chip};
+  }
+  function share(r, val){ return r.g ? val.p / 2 : val.p; }
+  function note(r, val, n){
+    if (!r.g) return L(val.b);
+    var who = t(r.g);
+    return t("genderNote").replace(/\{rate\}/g, pctText(val.p)).replace(/\{who\}/g, who)
+      .replace("{base}", L(val.b)).replace("{half}", nf().format(Math.round(n / 2))).replace("{whoDat}", t(r.g + "Dat"));
+  }
+
+  function renderStatic(){
+    document.documentElement.lang = lang;
+    document.title = t("title");
+    document.querySelectorAll("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
+    document.querySelectorAll("[data-i18n-html]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n-html")); });
+    document.getElementById("region-de").textContent = t("DE");
+    document.getElementById("region-eu").textContent = t("EU");
+    document.querySelectorAll("[data-lang]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    document.querySelectorAll("[data-region]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-region") === region ? "true" : "false"); });
+    document.getElementById("region-note").hidden = region !== "EU";
+    document.getElementById("method-list").innerHTML = t("method").map(function(m){ return "<li>" + esc(m) + "</li>"; }).join("");
+  }
+
+  function renderSources(){
+    var seen = [];
+    GROUPS.forEach(function(g){ g.rows.forEach(function(r){
+      [r.DE, r.EU].forEach(function(x){ if (x && seen.indexOf(x.s) < 0) seen.push(x.s); });
+    }); });
+    [S.nadira26].forEach(function(x){ if (seen.indexOf(x) < 0) seen.push(x); });
+    document.getElementById("source-list").innerHTML = seen.map(function(s){
+      return "<li>" + esc(L(s.t)) + '. <a href="' + esc(s.u) + '" target="_blank" rel="noopener">' + esc(t("toSource")) + "</a></li>";
+    }).join("");
+  }
+
   function render(n){
-    document.getElementById("result-title").innerHTML = "Bei <em>" + nf.format(n) + "</em> Besuchenden";
-    var t = "";
-    TILES.forEach(function(x){
-      t += '<div class="tile"><div class="num">' + count(n, x[1]) + '</div><div class="lab">' + esc(x[0]) + '</div></div>';
-    });
-    document.getElementById("tiles").innerHTML = t;
+    document.getElementById("result-title").innerHTML = t("resultTitle").replace("{n}", nf().format(n));
+
+    var byId = {};
+    GROUPS.forEach(function(g){ g.rows.forEach(function(r){ if (r.id) byId[r.id] = r; }); });
+    document.getElementById("tiles").innerHTML = TILES.map(function(id){
+      var r = byId[id], p = pick(r);
+      return '<div class="tile"><div class="num">' + count(n, share(r, p.val)) + '</div><div class="lab">' + esc(L(r)) + "</div>"
+        + '<div class="src">' + esc(p.val.s.k) + (p.chip ? ' <span class="chip">' + esc(p.chip) + "</span>" : "") + "</div></div>";
+    }).join("");
 
     var h = "";
     GROUPS.forEach(function(g){
-      h += '<section class="group"><header><h3>' + esc(g.title) + '</h3><p>' + esc(g.hint) + '</p></header>';
-      h += '<table class="tbl"><thead><tr><th>Merkmal</th><th class="n pct">Anteil</th><th class="n">Anzahl</th><th class="n">Quelle</th></tr></thead><tbody>';
-      g.rows.forEach(function(r){
-        var note = r[4] ? pctText(r[4].rate) + ' der ' + r[4].who + ', gerechnet mit ' + nf.format(Math.round(n / 2)) + ' ' + r[4].who + ' unter den Besuchenden' : r[3];
-        h += '<tr><td class="name">' + esc(r[0]) + (note ? '<small>' + esc(note) + '</small>' : '') + '</td>'
-           + '<td class="n pct">' + pctText(r[1]) + '</td>'
-           + '<td class="n count">' + count(n, r[1]) + '</td>'
-           + '<td class="src"><a href="' + esc(r[2].u) + '" target="_blank" rel="noopener" title="' + esc(r[2].t) + '">' + esc(r[2].k) + '</a></td></tr>';
+      var rows = g.rows.map(function(r){ var p = pick(r); return {r: r, p: p, s: share(r, p.val)}; })
+        .sort(function(a, b){ return b.s - a.s; });
+      h += '<section class="group"><header><h3>' + esc(L(g.title)) + "</h3><p>" + esc(L(g.hint)) + "</p></header>";
+      h += '<table class="tbl"><thead><tr><th>' + esc(t("thName")) + '</th><th class="n pct">' + esc(t("thPct")) + '</th><th class="n">' + esc(t("thCount")) + '</th><th class="n">' + esc(t("thSrc")) + "</th></tr></thead><tbody>";
+      rows.forEach(function(x){
+        var r = x.r, val = x.p.val;
+        h += '<tr><td class="name">' + esc(L(r)) + (x.p.chip ? '<span class="chip">' + esc(x.p.chip) + "</span>" : "")
+           + "<small>" + esc(note(r, val, n)) + "</small></td>"
+           + '<td class="n pct">' + pctText(x.s) + "</td>"
+           + '<td class="n count">' + count(n, x.s) + "</td>"
+           + '<td class="src"><a href="' + esc(val.s.u) + '" target="_blank" rel="noopener" title="' + esc(L(val.s.t)) + '">' + esc(val.s.k) + "</a></td></tr>";
       });
-      h += '</tbody></table></section>';
+      h += "</tbody></table></section>";
     });
     document.getElementById("groups").innerHTML = h;
   }
 
-  var seen = [], list = "";
-  GROUPS.forEach(function(g){ g.rows.forEach(function(r){ if (seen.indexOf(r[2]) < 0) seen.push(r[2]); }); });
-  seen.forEach(function(x){
-    list += '<li>' + esc(x.t) + '. <a href="' + esc(x.u) + '" target="_blank" rel="noopener">Zur Quelle</a></li>';
-  });
-  document.getElementById("source-list").innerHTML = list;
-
   var input = document.getElementById("visitors");
   function current(){
-    var v = parseInt(input.value, 10);
-    if (!isFinite(v) || v < 1) v = 50000;
-    if (v > 100000000) v = 100000000;
-    return v;
+    var x = parseInt(input.value, 10);
+    if (!isFinite(x) || x < 1) x = 50000;
+    if (x > 100000000) x = 100000000;
+    return x;
   }
+  function all(){ renderStatic(); renderSources(); render(current()); }
+
   document.getElementById("calc-form").addEventListener("submit", function(e){
     e.preventDefault();
     input.value = current();
@@ -377,7 +588,21 @@ footer .mail{font-weight:700;color:var(--purple)}
     clearTimeout(timer);
     timer = setTimeout(function(){ render(current()); }, 250);
   });
-  render(50000);
+  document.querySelectorAll("[data-lang]").forEach(function(b){
+    b.addEventListener("click", function(){
+      lang = b.getAttribute("data-lang");
+      try { localStorage.setItem("wvm-lang", lang); } catch (e) {}
+      all();
+    });
+  });
+  document.querySelectorAll("[data-region]").forEach(function(b){
+    b.addEventListener("click", function(){
+      region = b.getAttribute("data-region");
+      try { localStorage.setItem("wvm-region", region); } catch (e) {}
+      renderStatic(); render(current());
+    });
+  });
+  all();
 })();
 </script>
 </body>
