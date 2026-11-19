@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Wie viele deiner Besuchenden bringen statistisch Beeinträchtigungen, Erkrankungen oder Gewalterfahrungen mit? Ein Rechner für Festivals von saferspaces, mit Quellen für Deutschland und die EU.">
+<meta name="description" content="Wie viele deiner Gäste und Mitarbeitenden bringen statistisch Beeinträchtigungen, Erkrankungen oder Gewalterfahrungen mit? Ein Rechner für Veranstaltungen und Organisationen von saferspaces, mit Quellen für Deutschland und die EU.">
 <meta property="og:title" content="Wie viele Menschen?">
-<meta property="og:description" content="Wie viele deiner Besuchenden bringen statistisch Beeinträchtigungen, Erkrankungen oder Gewalterfahrungen mit? Ein Rechner für Festivals von saferspaces, mit Quellen für Deutschland und die EU.">
+<meta property="og:description" content="Wie viele deiner Gäste und Mitarbeitenden bringen statistisch Beeinträchtigungen, Erkrankungen oder Gewalterfahrungen mit? Ein Rechner für Veranstaltungen und Organisationen von saferspaces, mit Quellen für Deutschland und die EU.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232A1482'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23D2D6EF'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232A1482'/%3E%3Cpath d='M14 14h36v9H23v27h-9z' fill='%23fff'/%3E%3C/svg%3E">
 <title>Wie viele Menschen?</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,700&family=Figtree:wght@400;500;700&display=swap">
 <style>
@@ -16,82 +16,80 @@
 @font-face{font-family:"GT Alpina Condensed";font-style:italic;font-weight:700;font-display:swap;src:url("fonts/GTAlpina-CondBoldItalic.otf") format("opentype")}
 @font-face{font-family:"Mabry Pro";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/Mabry Pro.otf") format("opentype")}
 @font-face{font-family:"Mabry Pro";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/Mabry Pro Bold.otf") format("opentype")}
-/* Layout: one calm lavender column, white cards for input and results, purple headlines in condensed serif, green only on the one action. */
+/* Layout: dunkle saferspaces-CI. Dunkel-Lila als Fläche, Flieder für Zahlen, Linien und Akzente, Weiß für Text und Logo. Kein Grün. */
 :root{
-  --bg:#D2D6EF;
-  --surface:#FFFFFF;
-  --surface-2:#E9EBF7;
-  --ink:#191E23;
-  --muted:#5F6390;
-  --purple:#2A1482;
-  --line:#C2C6E5;
-  --green:#00855D;
-  --green-ink:#FFFFFF;
-  --accent-soft:#D6EFEE;
-  --tile-bg:#2A1482;--tile-fg:#D2D6EF;
+  --bg:#2A1482;
+  --surface:#34209A;
+  --surface-2:#1E0E62;
+  --ink:#FFFFFF;
+  --muted:#D2D6EF;
+  --muted-2:rgba(210,214,239,.72);
+  --purple:#FFFFFF;
+  --lilac:#D2D6EF;
+  --line:rgba(210,214,239,.28);
+  --line-strong:rgba(210,214,239,.55);
+  --btn-bg:#FFFFFF;
+  --btn-ink:#2A1482;
+  --accent-soft:#1E0E62;
+  --tile-bg:#D2D6EF;--tile-fg:#2A1482;
   --display:"GT Alpina Condensed","GT Alpina Cond","Fraunces",Georgia,"Times New Roman",serif;
   --body:"Mabry Pro","Figtree","Helvetica Neue",Arial,sans-serif;
-  --shadow:0 0 30px rgba(42,20,130,.08);
+  --shadow:0 0 30px rgba(0,0,0,.18);
   --r-s:10px;--r-m:20px;--r-l:40px;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#15112E;--surface:#1F1A42;--surface-2:#2A2456;--ink:#ECEAF8;--muted:#A9A5D0;
-    --purple:#CFC8FA;--line:#3A3470;--green:#2FB386;--green-ink:#0C2A20;--accent-soft:#1E3A3A;--tile-bg:#CFC8FA;--tile-fg:#15112E;
-    --shadow:0 0 30px rgba(0,0,0,.25);color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#15112E;--surface:#1F1A42;--surface-2:#2A2456;--ink:#ECEAF8;--muted:#A9A5D0;
-  --purple:#CFC8FA;--line:#3A3470;--green:#2FB386;--green-ink:#0C2A20;--accent-soft:#1E3A3A;--tile-bg:#CFC8FA;--tile-fg:#15112E;
-  --shadow:0 0 30px rgba(0,0,0,.25);color-scheme:dark;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{color-scheme:light}
+html{color-scheme:dark}
 img{max-width:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.444;-webkit-font-smoothing:antialiased}
-a{color:var(--purple)}
+a{color:var(--lilac)}
 .wrap{max-width:960px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 
 /* header */
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:56px}
-.brand{font-family:var(--body);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--purple);text-decoration:none}
-.eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.logo{display:block;width:clamp(96px,12vw,130px);height:auto;color:#FFFFFF}
+.logo svg{display:block;width:100%;height:auto;fill:currentColor}
+.brand{display:block;text-decoration:none}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lilac)}
+.hero-eyebrow{display:block;margin:0 0 18px}
 .top-right{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.seg{display:inline-flex;border:2px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
-.seg button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:700;letter-spacing:.06em;padding:6px 12px;border-radius:999px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--purple);color:var(--bg)}
+.seg{display:inline-flex;border:2px solid var(--line-strong);border-radius:999px;padding:3px;background:transparent}
+.seg button{border:0;background:transparent;color:var(--lilac);font:inherit;font-size:13px;font-weight:700;letter-spacing:.06em;padding:6px 12px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--lilac);color:var(--bg)}
 
 /* hero */
-h1{font-family:var(--display);font-weight:700;font-size:clamp(56px,10vw,104px);line-height:1;letter-spacing:-.01em;color:var(--purple);margin:0 0 28px;text-wrap:balance}
-h1 em{font-style:italic}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(44px,7.2vw,84px);line-height:1;letter-spacing:-.01em;color:#FFFFFF;margin:0 0 32px;max-width:16ch;text-wrap:balance}
+h1 em{font-style:italic;color:var(--lilac)}
 .lead{max-width:66ch;display:grid;gap:16px;margin:0 0 36px}
 .lead p{margin:0}
-.lead p.strong{font-weight:700}
+.lead p.strong{font-weight:700;font-size:21px;line-height:1.35}
 
 /* input card */
 .calc{background:var(--surface);border-radius:var(--r-m);box-shadow:var(--shadow);padding:28px;display:grid;gap:18px;margin-bottom:20px}
 .calc .row-label{font-weight:700;font-size:16px}
 .calc form{display:flex;gap:12px;flex-wrap:wrap;align-items:stretch}
-.calc .field{flex:1 1 220px;min-width:0;display:flex;align-items:center;gap:10px;border:2px solid var(--line);border-radius:var(--r-s);padding:0 16px;background:var(--surface)}
-.calc .field:focus-within{border-color:var(--purple);box-shadow:0 0 0 2px var(--purple)}
+.calc .field{flex:1 1 220px;min-width:0;display:flex;align-items:center;gap:10px;border:2px solid var(--line-strong);border-radius:var(--r-s);padding:0 16px;background:var(--surface-2)}
+.calc .field:focus-within{border-color:var(--lilac);box-shadow:0 0 0 2px var(--lilac)}
 .calc input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:24px;font-weight:700;padding:12px 0;font-variant-numeric:tabular-nums}
 .calc input::-webkit-outer-spin-button,.calc input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .calc input[type=number]{-moz-appearance:textfield}
-.calc .unit{color:var(--muted);font-size:15px;white-space:nowrap}
-.region{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:15px;color:var(--muted)}
-.btn{border:0;border-radius:999px;background:var(--green);color:var(--green-ink);font:inherit;font-weight:700;font-size:17px;padding:14px 28px;cursor:pointer;transition:transform .12s ease,filter .12s ease}
-.btn:hover{filter:brightness(1.06)}
+.calc .unit{color:var(--muted-2);font-size:15px;white-space:nowrap}
+.region{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:15px;color:var(--muted-2)}
+.btn{border:0;border-radius:999px;background:var(--btn-bg);color:var(--btn-ink);font:inherit;font-weight:700;font-size:17px;padding:14px 28px;cursor:pointer;transition:transform .12s ease,filter .12s ease}
+.btn:hover{background:var(--lilac)}
 .btn:active{transform:scale(.98)}
-.btn:focus-visible,.calc input:focus-visible{outline:none}a:focus-visible,button:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
-.note{font-size:15px;color:var(--muted);margin:0 0 56px;max-width:70ch}
+.btn:focus-visible,.calc input:focus-visible{outline:none}a:focus-visible,button:focus-visible{outline:3px solid var(--lilac);outline-offset:3px}
+.note{font-size:15px;color:var(--muted-2);margin:0 0 56px;max-width:70ch}
 
 /* results */
 .results-head{display:grid;gap:10px;margin-bottom:24px}
+.invite{display:grid;gap:10px;margin-bottom:48px}
+.invite p{margin:0;max-width:60ch;color:var(--muted-2)}
+.calc input::placeholder{color:var(--muted-2);font-weight:400;opacity:1}
 h2{font-family:var(--display);font-weight:700;font-size:clamp(40px,6vw,56px);line-height:1;color:var(--purple);margin:0;text-wrap:balance}
-h2 em{font-style:italic}
+h2 em{font-style:italic;color:var(--lilac)}
 .results-head p{margin:0;max-width:66ch}
-.results-head p.region-note{font-size:15px;color:var(--muted)}
+.results-head p.region-note{font-size:15px;color:var(--muted-2)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:40px}
 .tile{background:var(--tile-bg);color:var(--tile-fg);border-radius:var(--r-m);padding:22px 22px 18px;display:grid;gap:6px;min-width:0;align-content:start}
 .tile .num{font-family:var(--display);font-weight:700;font-size:48px;line-height:1;font-variant-numeric:tabular-nums}
@@ -101,18 +99,18 @@ h2 em{font-style:italic}
 .group{background:var(--surface);border-radius:var(--r-m);box-shadow:var(--shadow);padding:28px;margin-bottom:16px}
 .group header{display:grid;gap:8px;margin-bottom:18px}
 h3{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.5vw,40px);line-height:1;color:var(--purple);margin:0;text-wrap:balance}
-.group header p{margin:0;color:var(--muted);font-size:16px;max-width:66ch}
+.group header p{margin:0;color:var(--muted-2);font-size:16px;max-width:66ch}
 .tbl{width:100%;border-collapse:collapse}
-.tbl th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 0 8px;border-bottom:2px solid var(--line)}
+.tbl th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lilac);padding:0 0 8px;border-bottom:2px solid var(--line-strong)}
 .tbl td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:baseline}
 .tbl tr:last-child td{border-bottom:0}
 .tbl .n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.tbl td.count{font-family:var(--display);font-weight:700;font-size:24px;color:var(--purple);line-height:1;padding-left:16px}
-.tbl td.pct{color:var(--muted);font-size:15px;padding-left:16px}
+.tbl td.count{font-family:var(--display);font-weight:700;font-size:24px;color:var(--lilac);line-height:1;padding-left:16px}
+.tbl td.pct{color:var(--muted-2);font-size:15px;padding-left:16px}
 .tbl td.src{text-align:right;padding-left:16px;max-width:9em}
-.tbl td.src a{font-size:14px;font-weight:700;text-decoration:none;border-bottom:1.5px solid currentColor}
-.tbl td.name small{display:block;color:var(--muted);font-size:14px;line-height:1.3;margin-top:2px}
-.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1.5px solid var(--line);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.tbl td.src a{font-size:14px;font-weight:700;text-decoration:none;color:var(--lilac);border-bottom:1.5px solid currentColor}
+.tbl td.name small{display:block;color:var(--muted-2);font-size:14px;line-height:1.3;margin-top:2px}
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--lilac);border:1.5px solid var(--line-strong);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:2px;white-space:nowrap}
 .tile .chip{color:inherit;border-color:currentColor;opacity:.8;margin-left:0}
 @media (max-width:600px){
   .tbl th.pct,.tbl td.pct{display:none}
@@ -127,11 +125,11 @@ h3{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.5vw,40px);l
 .method ul{margin:0;padding-left:20px;display:grid;gap:6px}
 .sources{display:grid;gap:14px;margin:0 0 48px}
 .sources h3{font-size:28px}
-.sources ul{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px;color:var(--muted)}
-.sources a{font-weight:700;overflow-wrap:anywhere}
-footer{border-top:2px solid var(--line);padding-top:24px;display:grid;gap:10px;font-size:15px;color:var(--muted)}
+.sources ul{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px;color:var(--muted-2)}
+.sources a{font-weight:700;color:var(--lilac);overflow-wrap:anywhere}
+footer{border-top:2px solid var(--line-strong);padding-top:24px;display:grid;gap:10px;font-size:15px;color:var(--muted-2)}
 footer p{margin:0}
-footer .mail{font-weight:700;color:var(--purple)}
+footer .mail{font-weight:700;color:#FFFFFF}
 @media (prefers-reduced-motion:reduce){.btn{transition:none}}
 </style>
 
@@ -139,7 +137,7 @@ footer .mail{font-weight:700;color:var(--purple)}
 <body>
 <div class="wrap" id="app">
   <div class="top">
-    <a class="brand" href="https://saferspaces.io" target="_blank" rel="noopener">saferspaces</a>
+    <a class="brand logo" href="https://saferspaces.io" target="_blank" rel="noopener" aria-label="saferspaces"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1500" role="img" aria-hidden="true" focusable="false"><path d="M180.3,1280.82c-46.6,0-64.39,27.1-76.13,90.13-6.01,32.79-14.87,52.38-33.05,52.38-13.11,0-23.08-13.52-23.08-33.89,0-26.72,12.45-42.78,40.87-51.66l-26.66-46.31c-40.87,14.24-62.25,48.79-62.25,96.21,0,56.63,31.84,92.62,70.4,92.62,47.32,0,72.22-34.55,79.71-87.26,6.39-44.16,14.93-55.2,32-55.2,15.26,0,24.18,17.11,24.18,42.78,0,34.55-18.45,60.94-55.09,71.26l30.13,48.13c27.05-10.71,46.22-26.38,57.62-47.41,11.53-21.58,17.41-45.74,17.08-70.21,0-62.92-32.01-101.56-75.74-101.56ZM252.51,1051.32v-62.37L3.58,1086.97v81.97l248.77,97.81v-62.37l-51.56-19.21v-114.75l51.73-19.1ZM149.39,1166.07l-101.74-38.14,101.74-38.14v76.28ZM252.73,905.54h-96.01v-122.59h-52v122.64h-49.58v-133.24H3.58v190.2h249.15v-57.02ZM3.58,541.03v192.69h248.77v-196.28h-51.56v139.2h-49.58v-125.07h-51.61v125.18h-44.45v-135.73H3.58ZM142.28,340.73c-5.04-13.95-14.23-26.01-26.33-34.55-11.39-8.62-25.23-13.36-39.5-13.52-41.97,0-72.88,31.35-72.88,83.73v124.69h248.93v-57.02h-94.25v-46.31c0-23.18,12.84-36.32,37.35-36.32,11.88.24,23.76-.24,35.59-1.43,7.38-1.07,14.57-3.23,21.32-6.4l-.16-64.19h-5.51c-12.45,8.94-28.81,11.76-52.99,13.19-27.05,1.43-46.05,17.11-51.56,38.14ZM106.7,444.05h-51.56v-65.9c0-20.31,9.64-30.3,24.9-30.3s26.66,9.99,26.66,30.3v65.9ZM121.55,206.71c-34.48,0-60.81-18.49-71.17-55.2L2.4,181.82c10.68,27.1,26.33,46.31,47.32,57.73,21.5,11.59,45.6,17.48,70.02,17.11,62.85,0,101.41-32.07,101.41-75.89,0-46.7-27.05-64.52-90.01-76.28-32.72-6.07-52.28-14.96-52.28-33.12,0-13.14,13.5-23.13,33.82-23.24,26.72,0,42.69,12.48,51.61,40.96l46.22-26.71C196.31,21.42,161.77,0,114.5,0,57.93,0,22.01,31.96,22.01,70.6c0,47.36,34.48,72.31,87.15,79.81,44.07,6.4,55.09,14.96,55.09,32.07,0,15.34-17.08,24.23-42.69,24.23ZM373.37,3.7h-119.15v249.43h56.74v-92.62h62.41c54.75,0,83.56-38.14,83.56-78.76S428.84,3.7,373.37,3.7ZM369.62,108.8h-58.67v-53.43h58.67c18.51,0,30.24,9.6,30.24,26.71s-11.73,26.71-30.24,26.71ZM537.7,3.7l-97.83,249.43h62.25l19.22-51.66h114.63l19,51.66h62.25L619.45,3.7h-81.75ZM540.51,149.81l38.07-101.95,38.06,101.95h-76.13ZM847.44,205.06c-39.83,0-73.98-30.85-73.98-77.22s32.72-76.67,72.55-76.67c34.54,0,59.77,20.59,66.87,55.2l52.28-23.51C954.53,36.43,912.89.06,847.12.06c-17.08-.52-34.08,2.42-49.99,8.65-15.91,6.23-30.4,15.63-42.6,27.61-12.19,11.99-21.85,26.32-28.37,42.14-6.52,15.82-9.79,32.8-9.59,49.92,0,73.41,51.23,128.27,130.56,128.27,68.25,0,113.81-38.09,128.35-99.35l-52.28-21.03c-8.15,41.67-33.44,68.77-75.74,68.77ZM1065.63,151.57h125.04v-51.66h-125.04v-44.54h135.68V3.7h-192.41v249.21h195.83v-51.66h-139.09v-49.68ZM1349.99,104.49c-32.72-6.07-52.28-14.96-52.28-33.12,0-13.14,13.5-23.13,33.82-23.24,26.72,0,42.69,12.48,51.61,40.96l46.22-26.71C1415.16,21.42,1380.62,0,1333.35,0c-56.57,0-92.49,31.96-92.49,70.6,0,47.36,34.48,72.31,87.15,79.81,44.07,6.4,55.09,14.96,55.09,32.07,0,15.34-17.08,24.23-42.69,24.23-34.54,0-60.81-18.49-71.12-55.2l-48.03,30.3c10.69,27.1,26.33,46.31,47.32,57.73,21.51,11.58,45.6,17.47,70.02,17.11,62.85,0,101.41-32.07,101.41-75.89,0-46.7-27.05-64.52-90.01-76.28Z"/></svg></a>
     <div class="top-right">
 
       <div class="seg" role="group" aria-label="Sprache / Language">
@@ -149,7 +147,8 @@ footer .mail{font-weight:700;color:var(--purple)}
     </div>
   </div>
 
-  <h1 data-i18n-html="h1">Wie viele <em>Menschen?</em></h1>
+  <span class="eyebrow hero-eyebrow" data-i18n="heroEyebrow"></span>
+  <h1 data-i18n-html="h1"></h1>
   <div class="lead">
     <p class="strong" data-i18n="lead1"></p>
     <p data-i18n="lead2"></p>
@@ -160,7 +159,7 @@ footer .mail{font-weight:700;color:var(--purple)}
     <label class="row-label" id="calc-label" for="visitors" data-i18n="calcLabel"></label>
     <form id="calc-form">
       <div class="field">
-        <input id="visitors" name="visitors" type="number" inputmode="numeric" min="1" max="100000000" step="1" value="50000" aria-describedby="calc-hint">
+        <input id="visitors" name="visitors" type="number" inputmode="numeric" min="1" max="100000000" step="1" value="0" aria-describedby="calc-hint" autocomplete="off">
         <span class="unit" data-i18n="unit"></span>
       </div>
       <button class="btn" type="submit" data-i18n="calcBtn"></button>
@@ -175,6 +174,13 @@ footer .mail{font-weight:700;color:var(--purple)}
   </section>
   <p class="note" id="calc-hint" data-i18n="hint"></p>
 
+  <div class="invite" id="invite">
+    <span class="eyebrow" data-i18n="resultEyebrow"></span>
+    <h2 data-i18n-html="inviteTitle"></h2>
+    <p data-i18n="inviteText"></p>
+  </div>
+
+  <div id="results" hidden>
   <div class="results-head">
     <span class="eyebrow" data-i18n="resultEyebrow"></span>
     <h2 id="result-title"></h2>
@@ -184,6 +190,7 @@ footer .mail{font-weight:700;color:var(--purple)}
 
   <div class="tiles" id="tiles"></div>
   <div id="groups"></div>
+  </div>
 
   <section class="method">
     <h3 data-i18n="methodTitle"></h3>
@@ -208,17 +215,21 @@ footer .mail{font-weight:700;color:var(--purple)}
   var T = {
     de: {
       title: "Wie viele Menschen?",
-      h1: "Wie viele <em>Menschen?</em>",
-      lead1: "Wer seine Zielgruppe kennt, schafft einen Ort, an dem sich alle Menschen wohl und aufgehoben fühlen und gerne wiederkommen. Und einen Ort, an den auch die Menschen kommen möchten, die ohne Schutzstrukturen fernbleiben würden.",
-      lead2: "Jeder Mensch ist einzigartig und bringt eigene Bedürfnisse mit. Damit sich alle willkommen fühlen, müssen Barrieren vor Ort, in der Kommunikation und beim Melden so niedrig wie möglich sein.",
-      lead3: "Hier siehst du, wie viele Menschen in deinem Publikum oder deinem Team statistisch bestimmte Beeinträchtigungen, Erkrankungen oder Erfahrungen mitbringen. Die meisten Beeinträchtigungen sieht man nicht. Daraus kannst du ableiten, was dein Schutzkonzept und deine Safeguarding-Strukturen abdecken sollten. Jede Zahl stammt aus einer amtlichen Statistik oder einer veröffentlichten Studie. Welche das ist, steht direkt dahinter.",
-      calcLabel: "Erwartete Zahl der Menschen: Besuchende, Teilnehmende oder Mitglieder",
+      heroEyebrow: "Wie viele Menschen?",
+      h1: "Wer seine Gäste kennt, schafft Strukturen, in denen Menschen gerne <em>kommen, bleiben und wiederkommen.</em>",
+      lead1: "Gute Schutzstrukturen beginnen mit Wissen: Wer sind unsere Gäste und Mitarbeitenden, welchen Bedarf bringen sie mit, und welche Hürden stehen welcher Gruppe im Weg? Erst dann lassen sich Angebote bauen, die wirklich ankommen.",
+      lead2: "Jeder Mensch ist einzigartig. Die meisten Beeinträchtigungen sieht man nicht, und viele Erfahrungen werden nie erzählt. Dieses Werkzeug zeigt dir, wie viele Menschen in deinem Publikum oder deinem Team statistisch bestimmte Beeinträchtigungen, Erkrankungen oder Erfahrungen mitbringen.",
+      lead3: "Daraus kannst du ableiten, was deine Safeguarding-Strukturen abdecken sollten: vor Ort, in der Kommunikation und beim Melden. Jede Zahl stammt aus einer amtlichen Statistik oder einer veröffentlichten Studie. Welche das ist, steht direkt dahinter.",
+      calcLabel: "Wie viele Gäste und Mitarbeitende sind Teil deiner Veranstaltung?",
       unit: "Menschen",
       calcBtn: "Berechnen",
       regionLabel: "Daten für",
       DE: "Deutschland", EU: "EU",
       hint: "Eine Person kann mehrere Merkmale haben. Die Zahlen summieren sich deshalb nicht auf die Gesamtzahl.",
       resultEyebrow: "Ergebnis",
+      placeholder: "Deine Zahl, zum Beispiel 5.000",
+      inviteTitle: "Trag deine <em>Zahl</em> ein.",
+      inviteText: "Sobald du oben eingibst, wie viele Gäste und Mitarbeitende Teil deiner Veranstaltung sind, siehst du hier, wie viele davon statistisch bestimmte Beeinträchtigungen, Erkrankungen oder Erfahrungen mitbringen.",
       resultTitle: "Bei <em>{n}</em> Menschen",
       resultIntro: "Jede Zeile zeigt, wie viele dieser Menschen ein Merkmal statistisch mitbringen. Darunter steht, für wen und für welchen Zeitraum die Zahl gilt, dahinter die Quelle. Alle Quellen mit Link findest du im <a href=\"#quellen\">Quellenverzeichnis</a>.",
       euNote: "EU-Werte stammen aus Eurostat und der EU-Erhebung zu geschlechtsspezifischer Gewalt. Wo es keine vergleichbare EU-Zahl gibt, steht der Wert für Deutschland mit dem Hinweis „nur DE-Daten“.",
@@ -249,17 +260,21 @@ footer .mail{font-weight:700;color:var(--purple)}
     },
     en: {
       title: "How many people?",
-      h1: "How many <em>people?</em>",
-      lead1: "If you know your audience, you can create a place where everyone feels comfortable and looked after and wants to come back. And a place that people who would stay away without protection structures want to come to.",
-      lead2: "Every person is unique and brings their own needs. For everyone to feel welcome, barriers on site, in communication and in reporting have to be as low as possible.",
-      lead3: "This page shows how many people in your audience or your team statistically bring certain impairments, health conditions or experiences. Most impairments are invisible. Use the numbers to work out what your safeguarding concept and structures need to cover. Every figure comes from official statistics or a published study, named right next to it.",
-      calcLabel: "Expected number of people: visitors, participants or members",
+      heroEyebrow: "How many people?",
+      h1: "Know your guests, and you can build structures people are glad to <em>come to, stay in and return to.</em>",
+      lead1: "Good safeguarding structures start with knowledge: who are our guests and our staff, what do they need, and which barriers stand in the way of which groups? Only then can you build support that actually reaches people.",
+      lead2: "Every person is unique. Most impairments are invisible, and many experiences are never shared. This tool shows you how many people in your audience or your team statistically bring certain impairments, health conditions or experiences with them.",
+      lead3: "Use the numbers to work out what your safeguarding structures need to cover: on site, in communication and in reporting. Every figure comes from official statistics or a published study, named right next to it.",
+      calcLabel: "How many guests and staff are part of your event?",
       unit: "people",
       calcBtn: "Calculate",
       regionLabel: "Data for",
       DE: "Germany", EU: "EU",
       hint: "One person can have several characteristics. The numbers therefore do not add up to the total.",
       resultEyebrow: "Result",
+      placeholder: "Your number, for example 5,000",
+      inviteTitle: "Enter your <em>number.</em>",
+      inviteText: "As soon as you enter how many guests and staff are part of your event, this is where you will see how many of them statistically bring certain impairments, health conditions or experiences with them.",
       resultTitle: "With <em>{n}</em> people",
       resultIntro: "Each row shows how many of these people statistically share a characteristic. Below it you see who the figure refers to and for which period, next to it the source. All sources with links are in the <a href=\"#quellen\">list of sources</a>.",
       euNote: "EU figures come from Eurostat and the EU survey on gender-based violence. Where no comparable EU figure exists, the value for Germany is shown and marked “Germany only”.",
@@ -518,6 +533,7 @@ footer .mail{font-weight:700;color:var(--purple)}
     document.title = t("title");
     document.querySelectorAll("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
     document.querySelectorAll("[data-i18n-html]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n-html")); });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function(el){ el.placeholder = t(el.getAttribute("data-i18n-placeholder")); });
     document.getElementById("region-de").textContent = t("DE");
     document.getElementById("region-eu").textContent = t("EU");
     document.querySelectorAll("[data-lang]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
@@ -570,23 +586,32 @@ footer .mail{font-weight:700;color:var(--purple)}
   var input = document.getElementById("visitors");
   function current(){
     var x = parseInt(input.value, 10);
-    if (!isFinite(x) || x < 1) x = 50000;
+    if (!isFinite(x) || x < 1) return null;
     if (x > 100000000) x = 100000000;
     return x;
   }
-  function all(){ renderStatic(); renderSources(); render(current()); }
+  function show(){
+    var n = current();
+    document.getElementById("invite").hidden = n !== null;
+    document.getElementById("results").hidden = n === null;
+    if (n !== null) render(n);
+  }
+  function all(){ renderStatic(); renderSources(); show(); }
 
   document.getElementById("calc-form").addEventListener("submit", function(e){
     e.preventDefault();
-    input.value = current();
-    render(current());
+    var n = current();
+    if (n === null) { input.focus(); return; }
+    input.value = n;
+    show();
     var el = document.getElementById("result-title");
     if (el && el.scrollIntoView) el.scrollIntoView({behavior: "smooth", block: "start"});
   });
+  input.addEventListener("focus", function(){ if (input.value === "0") { try { input.select(); } catch (e) {} } });
   var timer;
   input.addEventListener("input", function(){
     clearTimeout(timer);
-    timer = setTimeout(function(){ render(current()); }, 250);
+    timer = setTimeout(show, 250);
   });
   document.querySelectorAll("[data-lang]").forEach(function(b){
     b.addEventListener("click", function(){
@@ -599,7 +624,7 @@ footer .mail{font-weight:700;color:var(--purple)}
     b.addEventListener("click", function(){
       region = b.getAttribute("data-region");
       try { localStorage.setItem("wvm-region", region); } catch (e) {}
-      renderStatic(); render(current());
+      renderStatic(); show();
     });
   });
   all();
