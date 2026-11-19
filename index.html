@@ -43,11 +43,14 @@ html{color-scheme:dark}
 img{max-width:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.444;-webkit-font-smoothing:antialiased}
 a{color:var(--lilac)}
-.wrap{max-width:960px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body{position:relative}
+.wrap{max-width:960px;margin:0 auto;padding-block:180px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 
 /* header */
-.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:40px}
-.logo{display:block;width:clamp(96px,12vw,130px);height:auto;color:#FFFFFF}
+/* Kopf wie auf saferspaces.io: Logo am linken, Sprache am rechten Bildschirmrand, unabhängig von der Textspalte */
+.top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-top:24px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.top{padding-top:32px;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+.logo{display:block;width:clamp(84px,9vw,112px);height:auto;color:#FFFFFF}
 .logo svg{display:block;width:100%;height:auto;fill:currentColor}
 .brand{display:block;text-decoration:none}
 .eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lilac)}
@@ -63,9 +66,18 @@ h1 em{font-style:italic;color:var(--lilac)}
 .lead{max-width:62ch;display:grid;gap:16px;margin:0 auto 40px;text-align:center}
 .lead p{margin:0}
 .lead p.strong{font-weight:700;font-size:21px;line-height:1.35}
+.more{justify-self:center;border:0;background:transparent;color:var(--lilac);font:inherit;font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 2px;cursor:pointer;border-bottom:2px solid currentColor;border-radius:0}
+.more:hover{color:#FFFFFF}
+.more .more-icon{display:inline-block;transition:transform .2s ease}
+.more[aria-expanded="true"] .more-icon{transform:rotate(180deg)}
+.more-text{display:grid;gap:16px}
+.more-text[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){.more .more-icon{transition:none}}
 
 /* input card */
-.calc{background:var(--surface);border-radius:var(--r-m);box-shadow:var(--shadow);padding:28px;display:grid;gap:18px;margin-bottom:20px}
+.calc{background:var(--surface);border-radius:var(--r-m);box-shadow:var(--shadow);padding:28px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px;margin-bottom:20px}
+.calc form{min-width:0}
+.calc input{width:100%}
 .calc .row-label{font-weight:700;font-size:16px}
 .calc form{display:flex;gap:12px;flex-wrap:wrap;align-items:stretch}
 .calc .field{flex:1 1 220px;min-width:0;display:flex;align-items:center;gap:10px;border:2px solid var(--line-strong);border-radius:var(--r-s);padding:0 16px;background:var(--surface-2)}
@@ -151,8 +163,11 @@ footer .mail{font-weight:700;color:#FFFFFF}
   <h1 data-i18n-html="h1"></h1>
   <div class="lead">
     <p class="strong" data-i18n="lead1"></p>
-    <p data-i18n="lead2"></p>
-    <p data-i18n="lead3"></p>
+    <button type="button" class="more" id="more-btn" aria-expanded="false" aria-controls="more-text"><span data-i18n="more"></span> <span class="more-icon" aria-hidden="true">↓</span></button>
+    <div class="more-text" id="more-text" hidden>
+      <p data-i18n="lead2"></p>
+      <p data-i18n="lead3"></p>
+    </div>
   </div>
 
   <section class="calc" aria-labelledby="calc-label">
@@ -216,6 +231,7 @@ footer .mail{font-weight:700;color:#FFFFFF}
     de: {
       title: "Wie viele Menschen?",
       heroEyebrow: "Gäste kennen. Strukturen schaffen.",
+      more: "Mehr dazu", less: "Weniger",
       h1: "Wie viele <em>Menschen?</em>",
       lead1: "Wer seine Gäste kennt, schafft Schutzstrukturen, in denen Menschen gerne kommen, bleiben und wiederkommen. Das beginnt mit Wissen: Wer sind unsere Gäste und Mitarbeitenden, welchen Bedarf bringen sie mit, und welche Hürden stehen welcher Gruppe im Weg?",
       lead2: "Jeder Mensch ist einzigartig. Die meisten Beeinträchtigungen sieht man nicht, und viele Erfahrungen werden nie erzählt. Dieses Werkzeug zeigt dir, wie viele Menschen in deinem Publikum oder deinem Team statistisch bestimmte Beeinträchtigungen, Erkrankungen oder Erfahrungen mitbringen.",
@@ -261,6 +277,7 @@ footer .mail{font-weight:700;color:#FFFFFF}
     en: {
       title: "How many people?",
       heroEyebrow: "Know your guests. Build the structures.",
+      more: "More", less: "Less",
       h1: "How many <em>people?</em>",
       lead1: "Know your guests, and you can build safeguarding structures people are glad to come to, stay in and return to. It starts with knowledge: who are our guests and our staff, what do they need, and which barriers stand in the way of which groups?",
       lead2: "Every person is unique. Most impairments are invisible, and many experiences are never shared. This tool shows you how many people in your audience or your team statistically bring certain impairments, health conditions or experiences with them.",
@@ -598,7 +615,7 @@ footer .mail{font-weight:700;color:#FFFFFF}
     document.getElementById("results").hidden = n === null;
     if (n !== null) render(n);
   }
-  function all(){ renderStatic(); renderSources(); show(); }
+  function all(){ renderStatic(); renderSources(); show(); if (typeof syncMore === "function") syncMore(); }
 
   document.getElementById("calc-form").addEventListener("submit", function(e){
     e.preventDefault();
@@ -608,6 +625,14 @@ footer .mail{font-weight:700;color:#FFFFFF}
     show();
     var el = document.getElementById("result-title");
     if (el && el.scrollIntoView) el.scrollIntoView({behavior: "smooth", block: "start"});
+  });
+  var moreBtn = document.getElementById("more-btn"), moreText = document.getElementById("more-text");
+  function syncMore(){ moreBtn.querySelector("span").textContent = t(moreBtn.getAttribute("aria-expanded") === "true" ? "less" : "more"); }
+  moreBtn.addEventListener("click", function(){
+    var open = moreBtn.getAttribute("aria-expanded") !== "true";
+    moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    moreText.hidden = !open;
+    syncMore();
   });
   input.addEventListener("focus", function(){ if (input.value === "0") { try { input.select(); } catch (e) {} } });
   input.addEventListener("blur", function(){ var n = current(); if (n !== null) input.value = nf().format(n); });
