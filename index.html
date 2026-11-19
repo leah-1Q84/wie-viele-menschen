@@ -159,7 +159,7 @@ footer .mail{font-weight:700;color:#FFFFFF}
     <label class="row-label" id="calc-label" for="visitors" data-i18n="calcLabel"></label>
     <form id="calc-form">
       <div class="field">
-        <input id="visitors" name="visitors" type="number" inputmode="numeric" min="1" max="100000000" step="1" value="0" aria-describedby="calc-hint" autocomplete="off">
+        <input id="visitors" name="visitors" type="text" inputmode="numeric" pattern="[0-9 .,]*" value="0" aria-describedby="calc-hint" autocomplete="off">
         <span class="unit" data-i18n="unit"></span>
       </div>
       <button class="btn" type="submit" data-i18n="calcBtn"></button>
@@ -478,11 +478,11 @@ footer .mail{font-weight:700;color:#FFFFFF}
       rows: [
         {id: "harass", de: "Frauen, die sexuelle Belästigung erlebt haben", en: "Women who have experienced sexual harassment", g: "women", DE: v(62.3, S.lesubia, B.lesubia)},
         {de: "Männer, die sexuelle Belästigung erlebt haben", en: "Men who have experienced sexual harassment", g: "men", DE: v(28.6, S.lesubia, B.lesubia)},
-        {de: "Menschen, die selbst Rassismus erlebt haben", en: "People who have experienced racism themselves", DE: v(22.2, S.nadira22, B.nadira22)},
+        {id: "racism", de: "Menschen, die selbst Rassismus erlebt haben", en: "People who have experienced racism themselves", DE: v(22.2, S.nadira22, B.nadira22)},
         {de: "Menschen, die in den letzten 12 Monaten Diskriminierung erlebt haben", en: "People who experienced discrimination in the past 12 months", DE: v(13.1, S.soep, B.soep)},
         {de: "Rassistisch markierte Menschen (Mindestschätzung)", en: "Racialised people (minimum estimate)", DE: v(6.5, S.soep, B.soepRace)},
         {de: "Queere Menschen (LGBTQIA+)", en: "Queer people (LGBTQIA+)", DE: v(12, S.ipsos25, B.ipsos25)},
-        {de: "Frauen, die einen sexuellen Übergriff erlebt haben", en: "Women who have experienced sexual assault", g: "women", DE: v(17.8, S.lesubia, B.lesubia), EU: v(17.2, S.gbv, B.gbv)},
+        {id: "assault", de: "Frauen, die einen sexuellen Übergriff erlebt haben", en: "Women who have experienced sexual assault", g: "women", DE: v(17.8, S.lesubia, B.lesubia), EU: v(17.2, S.gbv, B.gbv)},
         {de: "Frauen, denen K.-o.-Tropfen verabreicht wurden", en: "Women whose drinks were spiked with knock-out drops", g: "women", DE: v(6.7, S.lesubia, B.lesubia)},
         {de: "Männer, die einen sexuellen Übergriff erlebt haben", en: "Men who have experienced sexual assault", g: "men", DE: v(4.3, S.lesubia, B.lesubia)},
         {de: "Männer, denen K.-o.-Tropfen verabreicht wurden", en: "Men whose drinks were spiked with knock-out drops", g: "men", DE: v(3.7, S.lesubia, B.lesubia)},
@@ -491,7 +491,7 @@ footer .mail{font-weight:700;color:#FFFFFF}
     }
   ];
 
-  var TILES = ["psych", "harass", "hear"];
+  var TILES = ["racism", "psych", "assault"];
 
   var lang = "de", region = "DE";
   try { var sl = localStorage.getItem("wvm-lang"); if (sl === "de" || sl === "en") lang = sl; else if (!/^de/i.test(navigator.language || "")) lang = "en"; } catch (e) { if (!/^de/i.test(navigator.language || "")) lang = "en"; }
@@ -585,7 +585,9 @@ footer .mail{font-weight:700;color:#FFFFFF}
 
   var input = document.getElementById("visitors");
   function current(){
-    var x = parseInt(input.value, 10);
+    /* Zahl mit oder ohne Tausenderpunkt, Komma oder Leerzeichen: 50000, 50.000, 50,000, 50 000 */
+    var digits = String(input.value).replace(/[^0-9]/g, "");
+    var x = digits ? parseInt(digits, 10) : NaN;
     if (!isFinite(x) || x < 1) return null;
     if (x > 100000000) x = 100000000;
     return x;
@@ -602,12 +604,13 @@ footer .mail{font-weight:700;color:#FFFFFF}
     e.preventDefault();
     var n = current();
     if (n === null) { input.focus(); return; }
-    input.value = n;
+    input.value = nf().format(n);
     show();
     var el = document.getElementById("result-title");
     if (el && el.scrollIntoView) el.scrollIntoView({behavior: "smooth", block: "start"});
   });
   input.addEventListener("focus", function(){ if (input.value === "0") { try { input.select(); } catch (e) {} } });
+  input.addEventListener("blur", function(){ var n = current(); if (n !== null) input.value = nf().format(n); });
   var timer;
   input.addEventListener("input", function(){
     clearTimeout(timer);
